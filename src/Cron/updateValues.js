@@ -6,6 +6,9 @@ const urlEuro = 'https://www.melhorcambio.com/euro-hoje';
 const urlLibra = 'https://www.melhorcambio.com/libra-hoje';
 const urlDolarCanadense = 'https://www.melhorcambio.com/dolar-canadense-hoje';
 const urlIene = 'https://www.melhorcambio.com/iene-hoje';
+const urlDolarAustraliano = 'https://www.melhorcambio.com/dolar-australiano-hoje';
+const urlPesoMexicano = 'https://www.melhorcambio.com/peso-mexicano-hoje';
+const urlPesoArgentino = 'https://www.melhorcambio.com/peso-argentino-hoje';
 const moment = require('moment');
 
 // Run every midnight
@@ -91,7 +94,7 @@ cron.schedule(periodToRun, async () => {
         });
 });
 
-// Update canadian dolar 
+// Update Iene 
 cron.schedule(periodToRun, async () => {
     const data = await getData(urlIene);
     const $ = cheerio.load(data);
@@ -99,11 +102,65 @@ cron.schedule(periodToRun, async () => {
     var iene = iene.replace(",",".");
 
         await axios.put('http://localhost:8080/update', { 
-            currencyName: 'iene',
+            currencyName: 'yen',
             value: iene,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
             console.log('Iene value successfully updated to ' + 'R$ ' + iene);
+        }).catch(err => {
+            console.log(err);
+        });
+});
+
+// Update Iene 
+cron.schedule(periodToRun, async () => {
+    const data = await getData(urlDolarAustraliano);
+    const $ = cheerio.load(data);
+    var dollarAustraliano = $('#comercial').val();
+    var dollarAustraliano = dollarAustraliano.replace(",",".");
+
+        await axios.put('http://localhost:8080/update', { 
+            currencyName: 'australian-dollar',
+            value: dollarAustraliano,
+            lastUpdate: moment().locale('pt-br').format('L')
+        }).then(() => {
+            console.log('Australian dollar value successfully updated to ' + 'R$ ' + dollarAustraliano);
+        }).catch(err => {
+            console.log(err);
+        });
+});
+
+// Update Iene 
+cron.schedule(periodToRun, async () => {
+    const data = await getData(urlPesoMexicano);
+    const $ = cheerio.load(data);
+    var pesoMexicano = $('#comercial').val();
+    var pesoMexicano = pesoMexicano.replace(",",".");
+
+        await axios.put('http://localhost:8080/update', { 
+            currencyName: 'mexican-peso',
+            value: pesoMexicano,
+            lastUpdate: moment().locale('pt-br').format('L')
+        }).then(() => {
+            console.log('Mexican peso value successfully updated to ' + 'R$ ' + pesoMexicano);
+        }).catch(err => {
+            console.log(err);
+        });
+});
+
+// Update Iene 
+cron.schedule(periodToRun, async () => {
+    const data = await getData(urlPesoArgentino);
+    const $ = cheerio.load(data);
+    var pesoArgentino = $('#comercial').val();
+    var pesoArgentino = pesoArgentino.replace(",",".");
+
+        await axios.put('http://localhost:8080/update', { 
+            currencyName: 'argentine-peso',
+            value: pesoArgentino,
+            lastUpdate: moment().locale('pt-br').format('L')
+        }).then(() => {
+            console.log('Argentine peso value successfully updated to ' + 'R$ ' + pesoArgentino);
         }).catch(err => {
             console.log(err);
         });

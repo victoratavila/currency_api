@@ -43,7 +43,7 @@ module.exports = {
     // Create new currency 
     async createCurrency(req, res){
 
-        const { currencyName, value, lastUpdate } = req.body;
+        const { currencyName, value, code, symbol, lastUpdate } = req.body;
 
         await currency.findOne({
             where: {
@@ -62,6 +62,8 @@ module.exports = {
                         lower: true
                     }),
                     value: value,
+                    code: code,
+                    symbol: symbol,
                     lastUpdate: lastUpdate
                 }).then(() => {
                     res.json({result: 'Currency successfully created'});
@@ -84,9 +86,9 @@ module.exports = {
                 replacement: '-',
                 lower: true
             }),
-
             value: value,
             lastUpdate: lastUpdate
+            
         }, {
             where: {
                 currency: slugify(currencyName, {

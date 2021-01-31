@@ -13,6 +13,16 @@ const Currency = connection.define("currency", {
         allowNull: false
     },
 
+    code: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+
+    symbol: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+
     lastUpdate: {
         type: Sequelize.STRING,
         allowNull: false
