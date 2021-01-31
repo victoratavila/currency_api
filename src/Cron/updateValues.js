@@ -7,12 +7,16 @@ const urlLibra = 'https://www.melhorcambio.com/libra-hoje';
 const urlDolarCanadense = 'https://www.melhorcambio.com/dolar-canadense-hoje';
 const urlIene = 'https://www.melhorcambio.com/iene-hoje';
 const moment = require('moment');
-const periodToRun = '* * * * *';
+
+// Run every midnight
+const periodToRun = '0 0 * * *';
 
 const getData = async (url) => {
     const result = await axios.get(url);
     return result.data;
 }
+
+// aaa
 
 // Update dolar 
 cron.schedule(periodToRun, async () => {
