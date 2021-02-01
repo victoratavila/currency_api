@@ -12,7 +12,7 @@ const urlPesoArgentino = 'https://www.melhorcambio.com/peso-argentino-hoje';
 const moment = require('moment');
 
 // Run every midnight
-const periodToRun = '* * * * *';
+const periodToRun = '0 0 * * *';
 
 const getData = async (url) => {
     const result = await axios.get(url);
