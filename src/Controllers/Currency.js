@@ -7,7 +7,11 @@ module.exports = {
 
     // Get all currencies
     async getAll(req, res){
-        await currency.findAll().then(currency => {
+        await currency.findAll({
+            order: [
+                ['currency', 'ASC']
+            ]
+        }).then(currency => {
             res.json(currency);
         }).catch(err => {
             console.log(err);

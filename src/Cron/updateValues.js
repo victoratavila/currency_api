@@ -9,10 +9,18 @@ const urlIene = 'https://www.melhorcambio.com/iene-hoje';
 const urlDolarAustraliano = 'https://www.melhorcambio.com/dolar-australiano-hoje';
 const urlPesoMexicano = 'https://www.melhorcambio.com/peso-mexicano-hoje';
 const urlPesoArgentino = 'https://www.melhorcambio.com/peso-argentino-hoje';
+const urlPesoColombiano = 'https://www.melhorcambio.com/peso-colombiano-hoje';
+const urlPesoChileno = 'https://www.melhorcambio.com/peso-chileno-hoje';
+const urlDirham = 'https://www.melhorcambio.com/dirham-hoje';
 const moment = require('moment');
 
-// Run every midnight
-const periodToRun = '0 0 * * *';
+// Run every minute when developing and midnight in production
+if(process.env.PORT == 3000){
+    var periodToRun = '0 0 * * *';
+} else {
+    var periodToRun = '* * * * *';
+}
+
 
 const getData = async (url) => {
     const result = await axios.get(url);
@@ -94,7 +102,7 @@ cron.schedule(periodToRun, async () => {
         });
 });
 
-// Update Iene 
+// Update Yen 
 cron.schedule(periodToRun, async () => {
     const data = await getData(urlIene);
     const $ = cheerio.load(data);
@@ -112,7 +120,7 @@ cron.schedule(periodToRun, async () => {
         });
 });
 
-// Update Iene 
+// Update Australian dollar 
 cron.schedule(periodToRun, async () => {
     const data = await getData(urlDolarAustraliano);
     const $ = cheerio.load(data);
@@ -130,7 +138,7 @@ cron.schedule(periodToRun, async () => {
         });
 });
 
-// Update Iene 
+// Update Mexican peso 
 cron.schedule(periodToRun, async () => {
     const data = await getData(urlPesoMexicano);
     const $ = cheerio.load(data);
@@ -148,7 +156,7 @@ cron.schedule(periodToRun, async () => {
         });
 });
 
-// Update Iene 
+// Update Argentine peso 
 cron.schedule(periodToRun, async () => {
     const data = await getData(urlPesoArgentino);
     const $ = cheerio.load(data);
@@ -161,6 +169,60 @@ cron.schedule(periodToRun, async () => {
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
             console.log('Argentine peso - ' + 'R$ ' + pesoArgentino);
+        }).catch(err => {
+            console.log(err);
+        });
+});
+
+// Update Colombian peso 
+cron.schedule(periodToRun, async () => {
+    const data = await getData(urlPesoColombiano);
+    const $ = cheerio.load(data);
+    var pesoColombiano = $('#comercial').val();
+    var pesoColombiano = pesoColombiano.replace(",",".");
+
+        await axios.put('http://localhost:3000/currency/update', { 
+            currencyName: 'colombian-peso',
+            value: pesoColombiano,
+            lastUpdate: moment().locale('pt-br').format('L')
+        }).then(() => {
+            console.log('Colombian peso - ' + 'R$ ' + pesoColombiano);
+        }).catch(err => {
+            console.log(err);
+        });
+});
+
+// Update Colombian peso 
+cron.schedule(periodToRun, async () => {
+    const data = await getData(urlPesoChileno);
+    const $ = cheerio.load(data);
+    var pesoChileno = $('#comercial').val();
+    var pesoChileno = pesoChileno.replace(",",".");
+
+        await axios.put('http://localhost:3000/currency/update', { 
+            currencyName: 'chilean-peso',
+            value: pesoChileno,
+            lastUpdate: moment().locale('pt-br').format('L')
+        }).then(() => {
+            console.log('Chilean peso - ' + 'R$ ' + pesoChileno);
+        }).catch(err => {
+            console.log(err);
+        });
+});
+
+// Update Dirham
+cron.schedule(periodToRun, async () => {
+    const data = await getData(urlDirham);
+    const $ = cheerio.load(data);
+    var dirham = $('#comercial').val();
+    var dirham = dirham.replace(",",".");
+
+        await axios.put('http://localhost:3000/currency/update', { 
+            currencyName: 'dirham',
+            value: dirham,
+            lastUpdate: moment().locale('pt-br').format('L')
+        }).then(() => {
+            console.log('Dirham - ' + 'R$ ' + dirham);
         }).catch(err => {
             console.log(err);
         });
