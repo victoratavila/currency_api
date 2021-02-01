@@ -13,14 +13,7 @@ const urlPesoColombiano = 'https://www.melhorcambio.com/peso-colombiano-hoje';
 const urlPesoChileno = 'https://www.melhorcambio.com/peso-chileno-hoje';
 const urlDirham = 'https://www.melhorcambio.com/dirham-hoje';
 const moment = require('moment');
-
-// Run every minute when developing and midnight in production
-if(process.env.PORT == 3000){
-    var periodToRun = '0 0 * * *';
-} else {
-    var periodToRun = '* * * * *';
-}
-
+const periodToRun = require('../Cron/periodToRun');
 
 const getData = async (url) => {
     const result = await axios.get(url);
