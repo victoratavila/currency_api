@@ -20,6 +20,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(routes);
 
 // Server listener
-app.listen(process.env.PORT || 8080, () => {
+app.listen(3000, () => {
     console.log('The server is running');
 })
