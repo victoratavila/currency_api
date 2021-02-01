@@ -3,10 +3,10 @@ const router = express.Router();
 const Currency = require('../Controllers/Currency');
 const cron = require('../Cron/updateValues');
 
-router.get('/all', Currency.getAll);
-router.get('/:currencyName', Currency.getCurrency);
-router.post('/new', Currency.createCurrency);
-router.put('/update', Currency.updateCurrency);
+router.get('/currency/all', Currency.getAll);
+router.get('/currency/:currencyName', Currency.getCurrency);
+router.post('/currency/new', Currency.createCurrency);
+router.put('/currency/update', Currency.updateCurrency);
 
 
 module.exports = router;
