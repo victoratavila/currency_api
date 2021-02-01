@@ -12,15 +12,22 @@ const urlPesoArgentino = 'https://www.melhorcambio.com/peso-argentino-hoje';
 const urlPesoColombiano = 'https://www.melhorcambio.com/peso-colombiano-hoje';
 const urlPesoChileno = 'https://www.melhorcambio.com/peso-chileno-hoje';
 const urlDirham = 'https://www.melhorcambio.com/dirham-hoje';
+const urlFracoSuico = 'https://www.melhorcambio.com/franco-suico-hoje';
 const moment = require('moment');
-const periodToRun = require('../Cron/periodToRun');
 
+// Run every minute when developing and midnight in production
+if(process.env.PROD == undefined){
+    var periodToRun = '* * * * *';
+} else {
+    var periodToRun = '0 */3 * * * ';
+}
+
+// Function to fetch the url html
 const getData = async (url) => {
     const result = await axios.get(url);
     return result.data;
 }
 
-// aaa
 
 // Update dolar 
 cron.schedule(periodToRun, async () => {
@@ -216,6 +223,24 @@ cron.schedule(periodToRun, async () => {
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
             console.log('Dirham - ' + 'R$ ' + dirham);
+        }).catch(err => {
+            console.log(err);
+        });
+});
+
+// Update Swiss Franc
+cron.schedule(periodToRun, async () => {
+    const data = await getData(urlFracoSuico);
+    const $ = cheerio.load(data);
+    var francoSuico = $('#comercial').val();
+    var francoSuico = francoSuico.replace(",",".");
+
+        await axios.put('http://localhost:3000/currency/update', { 
+            currencyName: 'swiss-franc',
+            value: francoSuico,
+            lastUpdate: moment().locale('pt-br').format('L')
+        }).then(() => {
+            console.log('Franco suíço - ' + 'R$ ' + francoSuico);
         }).catch(err => {
             console.log(err);
         });
