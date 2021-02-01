@@ -12,7 +12,7 @@ const urlPesoArgentino = 'https://www.melhorcambio.com/peso-argentino-hoje';
 const moment = require('moment');
 
 // Run every midnight
-const periodToRun = '0 0 * * *';
+const periodToRun = '* * * * *';
 
 const getData = async (url) => {
     const result = await axios.get(url);
@@ -33,7 +33,7 @@ cron.schedule(periodToRun, async () => {
             value: dollar,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Dolar value successfully updated to ' + 'R$ ' + dollar);
+            console.log('Dolar - ' + 'R$ ' + dollar);
         }).catch(err => {
             console.log(err);
         });
@@ -51,7 +51,7 @@ cron.schedule(periodToRun, async () => {
             value: euro,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Euro value successfully updated to ' + 'R$ ' + euro);
+            console.log('Euro -' + 'R$ ' + euro);
         }).catch(err => {
             console.log(err);
         });
@@ -69,7 +69,7 @@ cron.schedule(periodToRun, async () => {
             value: libra,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Pound value successfully updated to ' + 'R$ ' + libra);
+            console.log('Pound - ' + 'R$ ' + libra);
         }).catch(err => {
             console.log(err);
         });
@@ -88,7 +88,7 @@ cron.schedule(periodToRun, async () => {
             value: dolarCanadense,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Canadian dollar value successfully updated to ' + 'R$ ' + dolarCanadense);
+            console.log('Canadian - ' + 'R$ ' + dolarCanadense);
         }).catch(err => {
             console.log(err);
         });
@@ -106,7 +106,7 @@ cron.schedule(periodToRun, async () => {
             value: iene,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Iene value successfully updated to ' + 'R$ ' + iene);
+            console.log('Iene - ' + 'R$ ' + iene);
         }).catch(err => {
             console.log(err);
         });
@@ -124,7 +124,7 @@ cron.schedule(periodToRun, async () => {
             value: dollarAustraliano,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Australian dollar value successfully updated to ' + 'R$ ' + dollarAustraliano);
+            console.log('Australian dollar - ' + 'R$ ' + dollarAustraliano);
         }).catch(err => {
             console.log(err);
         });
@@ -142,7 +142,7 @@ cron.schedule(periodToRun, async () => {
             value: pesoMexicano,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Mexican peso value successfully updated to ' + 'R$ ' + pesoMexicano);
+            console.log('Mexican peso - ' + 'R$ ' + pesoMexicano);
         }).catch(err => {
             console.log(err);
         });
@@ -160,7 +160,7 @@ cron.schedule(periodToRun, async () => {
             value: pesoArgentino,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Argentine peso value successfully updated to ' + 'R$ ' + pesoArgentino);
+            console.log('Argentine peso - ' + 'R$ ' + pesoArgentino);
         }).catch(err => {
             console.log(err);
         });

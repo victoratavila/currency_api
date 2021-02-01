@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const connection = require('./database/connection');
 const routes = require('./Router/routes');
+const cors = require('cors');
+
+// Setting cors
+app.use(cors());
 
 // Authenticate database connection
 connection.authenticate().then(() => {
@@ -16,6 +20,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(routes);
 
 // Server listener
-app.listen(process.env.port || 8080, () => {
+app.listen(process.env.PORT || 8080, () => {
     console.log('The server is running');
 })
