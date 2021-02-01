@@ -105,6 +105,29 @@ module.exports = {
         }).catch(err => {
             console.log(err);
         })
+    },
+
+    async searchByCode(req, res){
+        const { code } = req.params;
+
+        await currency.findOne({
+            where: {
+                code: slugify(code, {
+                    replacement: '-',
+                    lower: true
+                })
+            }
+        }).then( currency => {
+
+            if(currency == null){
+                res.status(404).json({error: `Currency related to the code ${code} not found`});
+            } else {
+                res.json(currency);
+            }
+           
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
 }
