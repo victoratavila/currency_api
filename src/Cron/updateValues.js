@@ -19,7 +19,7 @@ const moment = require('moment');
 if(process.env.PROD == undefined){
     var periodToRun = '* * * * *';
 } else {
-    var periodToRun = '0 0 * * * ';
+    var periodToRun = '0 * * * * ';
 }
 
 // Function to fetch the url html

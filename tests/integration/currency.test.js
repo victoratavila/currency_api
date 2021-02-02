@@ -32,7 +32,6 @@ describe('API Currency values', () => {
             var dollar = $('#comercial').val();
             var dollar = dollar.replace(",",".");
             var dollar = parseFloat(dollar);
-
             expect(dollar).toEqual(dolar_response);
         }).catch(err => {
             console.log(err);
