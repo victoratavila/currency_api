@@ -17,9 +17,9 @@ const moment = require('moment');
 
 // Run every minute when developing and midnight in production
 if(process.env.PROD == undefined){
-    var periodToRun = '0 */3 * * *';
+    var periodToRun = '* * * * *';
 } else {
-    var periodToRun = '0 */3 * * * ';
+    var periodToRun = '0 0 * * * ';
 }
 
 // Function to fetch the url html

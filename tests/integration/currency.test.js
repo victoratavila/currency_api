@@ -169,7 +169,7 @@ describe('API Currency values', () => {
         })
     });
 
-    it('Colombian peso must be equal to the current value', async () => {
+    it('Chilean peso must be equal to the current value', async () => {
 
         await axios.get(baseURL + '/chilean-peso').then( async chilean => {
             let chilean_peso_response = chilean.data[0].value;
