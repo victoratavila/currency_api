@@ -128,6 +128,18 @@ module.exports = {
         }).catch(err => {
             console.log(err);
         })
+    },
+
+    async searchMainCurrency(req, res){
+        await currency.findAll({
+            where: {
+                currency: ['dollar', 'euro', 'pound']
+            }
+        }).then(response => {
+            res.json(response);
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
 }

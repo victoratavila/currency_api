@@ -15,11 +15,15 @@ const urlDirham = 'https://www.melhorcambio.com/dirham-hoje';
 const urlFracoSuico = 'https://www.melhorcambio.com/franco-suico-hoje';
 const moment = require('moment');
 
+
+
 // Run every minute when developing and midnight in production
 if(process.env.PROD == undefined){
     var periodToRun = '* * * * *';
+    var URL = 'http://localhost:8080/currency/update';
 } else {
-    var periodToRun = '0 * * * * ';
+    var periodToRun = '* * * * * ';
+    var URL = 'http://localhost:3000/currency/update';
 }
 
 // Function to fetch the url html
@@ -36,7 +40,7 @@ cron.schedule(periodToRun, async () => {
         var dollar = $('#comercial').val();
         var dollar = dollar.replace(",",".");
 
-        await axios.put(`http://localhost:3000/currency/update`, { 
+        await axios.put(URL, { 
             currencyName: 'dollar',
             value: dollar,
             lastUpdate: moment().locale('pt-br').format('L')
@@ -54,7 +58,7 @@ cron.schedule(periodToRun, async () => {
     var euro = $('#comercial').val();
     var euro = euro.replace(",",".");
 
-        await axios.put(`http://localhost:3000/currency/update`, { 
+        await axios.put(URL, { 
             currencyName: 'euro',
             value: euro,
             lastUpdate: moment().locale('pt-br').format('L')
@@ -72,7 +76,7 @@ cron.schedule(periodToRun, async () => {
     var libra = $('#comercial').val();
     var libra = libra.replace(",",".");
 
-        await axios.put(`http://localhost:3000/currency/update`, { 
+        await axios.put(URL, { 
             currencyName: 'pound',
             value: libra,
             lastUpdate: moment().locale('pt-br').format('L')
@@ -91,7 +95,7 @@ cron.schedule(periodToRun, async () => {
     var dolarCanadense = $('#comercial').val();
     var dolarCanadense = dolarCanadense.replace(",",".");
 
-        await axios.put('http://localhost:3000/currency/update', { 
+        await axios.put(URL, { 
             currencyName: 'canadian-dollar',
             value: dolarCanadense,
             lastUpdate: moment().locale('pt-br').format('L')
@@ -109,7 +113,7 @@ cron.schedule(periodToRun, async () => {
     var iene = $('#comercial').val();
     var iene = iene.replace(",",".");
 
-        await axios.put('http://localhost:3000/currency/update', { 
+        await axios.put(URL, { 
             currencyName: 'yen',
             value: iene,
             lastUpdate: moment().locale('pt-br').format('L')
@@ -127,7 +131,7 @@ cron.schedule(periodToRun, async () => {
     var dollarAustraliano = $('#comercial').val();
     var dollarAustraliano = dollarAustraliano.replace(",",".");
 
-        await axios.put('http://localhost:3000/currency/update', { 
+        await axios.put(URL, { 
             currencyName: 'australian-dollar',
             value: dollarAustraliano,
             lastUpdate: moment().locale('pt-br').format('L')
@@ -145,7 +149,7 @@ cron.schedule(periodToRun, async () => {
     var pesoMexicano = $('#comercial').val();
     var pesoMexicano = pesoMexicano.replace(",",".");
 
-        await axios.put('http://localhost:3000/currency/update', { 
+        await axios.put(URL, { 
             currencyName: 'mexican-peso',
             value: pesoMexicano,
             lastUpdate: moment().locale('pt-br').format('L')
@@ -163,7 +167,7 @@ cron.schedule(periodToRun, async () => {
     var pesoArgentino = $('#comercial').val();
     var pesoArgentino = pesoArgentino.replace(",",".");
 
-        await axios.put('http://localhost:3000/currency/update', { 
+        await axios.put(URL, { 
             currencyName: 'argentine-peso',
             value: pesoArgentino,
             lastUpdate: moment().locale('pt-br').format('L')
@@ -181,7 +185,7 @@ cron.schedule(periodToRun, async () => {
     var pesoColombiano = $('#comercial').val();
     var pesoColombiano = pesoColombiano.replace(",",".");
 
-        await axios.put('http://localhost:3000/currency/update', { 
+        await axios.put(URL, { 
             currencyName: 'colombian-peso',
             value: pesoColombiano,
             lastUpdate: moment().locale('pt-br').format('L')
@@ -199,7 +203,7 @@ cron.schedule(periodToRun, async () => {
     var pesoChileno = $('#comercial').val();
     var pesoChileno = pesoChileno.replace(",",".");
 
-        await axios.put('http://localhost:3000/currency/update', { 
+        await axios.put(URL, { 
             currencyName: 'chilean-peso',
             value: pesoChileno,
             lastUpdate: moment().locale('pt-br').format('L')
@@ -217,7 +221,7 @@ cron.schedule(periodToRun, async () => {
     var dirham = $('#comercial').val();
     var dirham = dirham.replace(",",".");
 
-        await axios.put('http://localhost:3000/currency/update', { 
+        await axios.put(URL, { 
             currencyName: 'dirham',
             value: dirham,
             lastUpdate: moment().locale('pt-br').format('L')
@@ -235,7 +239,7 @@ cron.schedule(periodToRun, async () => {
     var francoSuico = $('#comercial').val();
     var francoSuico = francoSuico.replace(",",".");
 
-        await axios.put('http://localhost:3000/currency/update', { 
+        await axios.put(URL, { 
             currencyName: 'swiss-franc',
             value: francoSuico,
             lastUpdate: moment().locale('pt-br').format('L')

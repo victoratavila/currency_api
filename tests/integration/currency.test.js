@@ -19,7 +19,12 @@ const getData = async (url) => {
     return result.data;
 }
 
-const baseURL = 'http://localhost:3000/currency';
+if(process.env.PORT == undefined){
+   var baseURL = 'http://localhost:8080/currency';
+} else {
+    var baseURL = 'http://localhost:3000/currency';
+}
+
 
 describe('API Currency values', () => {
 

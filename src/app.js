@@ -4,6 +4,12 @@ const connection = require('./database/connection');
 const routes = require('./Router/routes');
 const cors = require('cors');
 
+if(process.env.PROD == undefined){
+    var PORT = 8080
+} else {
+    var PORT = 3000
+}
+
 // Setting cors
 app.use(cors());
 
@@ -20,6 +26,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(routes);
 
 // Server listener
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log('The server is running');
 })
