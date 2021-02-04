@@ -13,16 +13,15 @@ const urlPesoColombiano = 'https://www.melhorcambio.com/peso-colombiano-hoje';
 const urlPesoChileno = 'https://www.melhorcambio.com/peso-chileno-hoje';
 const urlDirham = 'https://www.melhorcambio.com/dirham-hoje';
 const urlFracoSuico = 'https://www.melhorcambio.com/franco-suico-hoje';
+const urlRenminbi = 'https://www.melhorcambio.com/iuan-hoje';
 const moment = require('moment');
 
-
-
-// Run every minute when developing and midnight in production
+// Run every minute when developing and every 1h in production
 if(process.env.PROD == undefined){
     var periodToRun = '* * * * *';
     var URL = 'http://localhost:8080/currency/update';
 } else {
-    var periodToRun = '* * * * * ';
+    var periodToRun = '0 * * * * ';
     var URL = 'http://localhost:3000/currency/update';
 }
 
@@ -249,6 +248,25 @@ cron.schedule(periodToRun, async () => {
             console.log(err);
         });
 });
+
+// Update Swiss Franc
+cron.schedule(periodToRun, async () => {
+    const data = await getData(urlRenminbi);
+    const $ = cheerio.load(data);
+    var renminbi = $('#comercial').val();
+    var renminbi = renminbi.replace(",",".");
+
+        await axios.put(URL, { 
+            currencyName: 'renminbi',
+            value: renminbi,
+            lastUpdate: moment().locale('pt-br').format('L')
+        }).then(() => {
+            console.log('Renminbi - ' + 'R$ ' + renminbi);
+        }).catch(err => {
+            console.log(err);
+        });
+});
+
 
 
 module.exports = cron;

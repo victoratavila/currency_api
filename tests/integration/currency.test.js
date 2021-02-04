@@ -12,6 +12,7 @@ const urlPesoColombiano = 'https://www.melhorcambio.com/peso-colombiano-hoje';
 const urlPesoChileno = 'https://www.melhorcambio.com/peso-chileno-hoje';
 const urlDirham = 'https://www.melhorcambio.com/dirham-hoje';
 const urlFracoSuico = 'https://www.melhorcambio.com/franco-suico-hoje';
+const urlRenminbi = 'https://www.melhorcambio.com/iuan-hoje';
 
 // Function to fetch the url html
 const getData = async (url) => {
@@ -19,11 +20,8 @@ const getData = async (url) => {
     return result.data;
 }
 
-if(process.env.PORT == undefined){
-   var baseURL = 'http://localhost:8080/currency';
-} else {
-    var baseURL = 'http://localhost:3000/currency';
-}
+const baseURL = 'http://localhost:8080/currency';
+// const baseURL = 'http://globalcurrencyapi-com.umbler.net/currency';
 
 
 describe('API Currency values', () => {
@@ -37,6 +35,7 @@ describe('API Currency values', () => {
             var dollar = $('#comercial').val();
             var dollar = dollar.replace(",",".");
             var dollar = parseFloat(dollar);
+            
             expect(dollar).toEqual(dolar_response);
         }).catch(err => {
             console.log(err);
@@ -216,6 +215,22 @@ describe('API Currency values', () => {
             var swissFrancValue = parseFloat(swissFrancValue);
 
             expect(swiss_franc_response).toEqual(swissFrancValue);
+        }).catch(err => {
+            console.log(err);
+        })
+    });
+
+        it('Renminbi must be equal to the current value', async () => {
+
+        await axios.get(baseURL + '/renminbi').then( async renminbi => {
+            let renminbi_response = renminbi.data[0].value;
+            const data = await getData(urlRenminbi);
+            const $ = cheerio.load(data);
+            var renminbiValue = $('#comercial').val();
+            var renminbiValue = renminbiValue.replace(",",".");
+            var renminbiValue = parseFloat(renminbiValue);
+
+            expect(renminbiValue).toEqual(renminbi_response);
         }).catch(err => {
             console.log(err);
         })
