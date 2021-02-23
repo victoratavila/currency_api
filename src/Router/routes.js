@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Currency = require('../Controllers/Currency');
+const Spreadsheet = require('../Controllers/Spreadsheet');
 const cron = require('../Cron/updateValues');
 
 router.get('/currency/main', Currency.searchMainCurrency);

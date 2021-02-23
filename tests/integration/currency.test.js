@@ -15,13 +15,14 @@ const urlFracoSuico = 'https://www.melhorcambio.com/franco-suico-hoje';
 const urlRenminbi = 'https://www.melhorcambio.com/iuan-hoje';
 
 // Function to fetch the url html
+
 const getData = async (url) => {
     const result = await axios.get(url);
     return result.data;
 }
 
-const baseURL = 'http://localhost:8080/currency';
-// const baseURL = 'http://globalcurrencyapi-com.umbler.net/currency';
+// const baseURL = 'http://localhost:8080/currency';
+const baseURL = 'http://globalcurrencyapi-com.umbler.net/currency';
 
 
 describe('API Currency values', () => {

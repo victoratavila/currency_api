@@ -22,6 +22,9 @@ connection.authenticate().then(() => {
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true }))
 
+// Setting static folder
+app.use(express.static(__dirname + '/public'));
+
 // Setting routes
 app.use(routes);
 
