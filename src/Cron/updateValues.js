@@ -21,7 +21,7 @@ if(process.env.PROD == undefined){
     var periodToRun = '* * * * *';
     var URL = 'http://localhost:8080/currency/update';
 } else {
-    var periodToRun = '* * * * * ';
+    var periodToRun = '*/10 * * * *';
     var URL = 'http://localhost:3000/currency/update';
 }
 
