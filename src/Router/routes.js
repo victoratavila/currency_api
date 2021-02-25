@@ -10,6 +10,6 @@ router.get('/currency/:currencyName', Currency.getCurrency);
 router.post('/currency/new', Currency.createCurrency);
 router.put('/currency/update', Currency.updateCurrency);
 router.get('/currency/code/:code', Currency.searchByCode);
-
+router.get('/status', Currency.status);
 
 module.exports = router;

@@ -140,6 +140,13 @@ module.exports = {
         }).catch(err => {
             console.log(err);
         })
+    },
+
+    async status(req, res){
+        const process = {
+            "status": true
+        }
+        res.json(process);
     }
 
 }
