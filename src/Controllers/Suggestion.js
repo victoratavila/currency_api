@@ -15,8 +15,8 @@ module.exports = {
     async sendSuggestion(req, res){
 
         const { email, username, suggestionSent } = req.body;
-
-        if(email == undefined || username == undefined || suggestionSent == undefined){
+        console.log(email)
+        if(email == undefined || username == undefined || suggestionSent == undefined || email == ''){
             res.status(400).json({error: 'Please inform e-mail, username and suggestion to register'});
         } else {
 
@@ -27,18 +27,18 @@ module.exports = {
             }).then(() => {
     
                     try {
-                        sendMail(
-                            // Sender name
-                            'Conversor de moeda', 
-                            // Sender email
-                            'contato@conversordemoeda.xyz', 
-                            // Recipient
-                            `${email}`, 
-                            // Subject
-                            `Sua sugestão foi recebida, ${username}! 💚`, 
-                              // Content
-                            `Olá, ${username}! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
-                        )
+                        // sendMail(
+                        //     // Sender name
+                        //     'Conversor de moeda', 
+                        //     // Sender email
+                        //     'contato@conversordemoeda.xyz', 
+                        //     // Recipient
+                        //     `${email}`, 
+                        //     // Subject
+                        //     `Sua sugestão foi recebida, ${username}! 💚`, 
+                        //       // Content
+                        //     `Olá, ${username}! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
+                        // )
                 
                         res.status(200).json({result: 'E-mail successfully sent to ' + email})
                     } catch (err) {
