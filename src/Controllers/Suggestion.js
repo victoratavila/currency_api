@@ -32,9 +32,9 @@ module.exports = {
                             // Sender email
                             'contato@conversordemoeda.xyz', 
                             // Recipient
-                            `${email}`, 
+                            `${email.trim()}`, 
                             // Subject
-                            `Sua sugestão foi recebida, ${username}! 💚`, 
+                            `Sua sugestão foi recebida, ${username.trim()}! 💚`, 
                               // Content
                             `Olá, ${username}! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
                         )
