@@ -23,31 +23,31 @@ module.exports = {
         } else {
 
             if(emailValidator == false){
-                res.status(400).json({error: 'Por favor informe um e-mail válido'});
+                res.status(400).json({error: 'Por favor informe um e-mail válido!'});
             } else {
                 await suggestion.create({
                     email: email,
                     username: username,
                     suggestion: suggestionSent
-                }).then(() => {
-        
+                }).then((response) => {
                         try {
-                            sendMail(
-                                // Sender name
-                                'Conversor de moeda', 
-                                // Sender email
-                                'contato@conversordemoeda.xyz', 
-                                // Recipient
-                                `${email.trim()}`, 
-                                // Subject
-                                `Sua sugestão foi recebida, ${username.trim()}! 💚`, 
-                                  // Content
-                                `Olá, ${username}! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
-                            )
+                            // sendMail(
+                            //     // Sender name
+                            //     'Conversor de moeda', 
+                            //     // Sender email
+                            //     'contato@conversordemoeda.xyz', 
+                            //     // Recipient
+                            //     `${email.trim()}`, 
+                            //     // Subject
+                            //     `Sua sugestão foi recebida, ${username.trim()}! 💚`, 
+                            //       // Content
+                            //     `Olá, ${username}! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
+                            // )
                     
-                            res.status(200).json({result: 'E-mail successfully sent to ' + email})
+                            res.status(200).json({result: 'Sugestão enviada com sucesso! Você receberá uma confirmação no e-mail ' + email})
                         } catch (err) {
                             console.log(err);
+                            res.status(200).result({result: 'Sugestão enviada com sucesso!'})
                         }
                     
                 }).catch(err => {
@@ -56,6 +56,43 @@ module.exports = {
             }
         
     }
-
   
-}}
+},
+
+        async sendNewsletter(req, res){
+            await suggestion.findAll({attributes: ['email']}).then(response => {
+               let recipients = [];
+
+               // Create a single array with all the recipients
+               response.forEach( async data => {
+                   let checkedEmail = data.dataValues.email;
+                   if(recipients.includes(checkedEmail)){
+                   } else {
+                        recipients.push(checkedEmail);
+                   }
+               });
+               
+
+               try {
+                sendMail(
+                    // Sender name
+                    'Conversor de moeda', 
+                    // Sender email
+                    'contato@conversordemoeda.xyz', 
+                    // Recipient
+                    recipients, 
+                    // Subject
+                    `Sua sugestão foi recebida! 💚`, 
+                      // Content
+                    `Olá! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
+                )
+        
+                res.status(200).json({result: 'Newsletter successfully sent to the list'});
+            } catch (err) {
+                console.log(err);
+            }
+
+            })
+        }
+
+}

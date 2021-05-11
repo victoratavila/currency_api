@@ -14,4 +14,6 @@ router.get('/currency/code/:code', Currency.searchByCode);
 router.get('/status', Currency.status);
 router.post('/suggestion', Suggestion.sendSuggestion);
 router.get('/suggestion', Suggestion.getSuggestions)
+
+router.get('/newsletter', Suggestion.sendNewsletter);
 module.exports = router;

@@ -20,6 +20,6 @@ const Suggestion = connection.define("suggestion", {
 
   });
 
-Suggestion.sync({ force: true });
+Suggestion.sync({ force: false });
 
 module.exports = Suggestion;
