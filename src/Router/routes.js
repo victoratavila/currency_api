@@ -15,5 +15,5 @@ router.get('/status', Currency.status);
 router.post('/suggestion', Suggestion.sendSuggestion);
 router.get('/suggestion', Suggestion.getSuggestions)
 
-router.get('/newsletter', Suggestion.sendNewsletter);
+router.post('/newsletter', Suggestion.sendNewsletter);
 module.exports = router;

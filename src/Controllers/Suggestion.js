@@ -2,6 +2,8 @@ const express = require('express');
 const sendMail = require('../Mail/sender');
 const suggestion = require('../Models/suggestion');
 const validator = require("email-validator");
+const newsletterToken = process.env.NEWSLETTER_TOKEN;
+console.log(newsletterToken);
 
 module.exports = {
 
@@ -60,39 +62,47 @@ module.exports = {
 },
 
         async sendNewsletter(req, res){
-            await suggestion.findAll({attributes: ['email']}).then(response => {
-               let recipients = [];
+            const token = req.body.token;
 
-               // Create a single array with all the recipients
-               response.forEach( async data => {
-                   let checkedEmail = data.dataValues.email;
-                   if(recipients.includes(checkedEmail)){
-                   } else {
-                        recipients.push(checkedEmail);
-                   }
-               });
-               
+            if(token != newsletterToken){
+                res.status(403).json({error: 'invalid token provided'});
+            } else {
+                await suggestion.findAll({attributes: ['email']}).then(response => {
+                    let recipients = [];
+     
+                    // Create a single array with all the recipients
+                    response.forEach( async data => {
+                        let checkedEmail = data.dataValues.email;
+                        if(recipients.includes(checkedEmail)){
+                        } else {
+                             recipients.push(checkedEmail);
+                        }
+                    });
+                    
+     
+                    try {
+                     sendMail(
+                         // Sender name
+                         'Conversor de moeda', 
+                         // Sender email
+                         'contato@conversordemoeda.xyz', 
+                         // Recipient
+                         recipients, 
+                         // Subject
+                         `Sua sugestão foi recebida com sucesso! 💚`, 
+                           // Content
+                         `Olá! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
+                     )
+             
+                     res.status(200).json({result: `Newsletter successfully sent to the newsletter list with ${recipients.length} recipients`});
+                 } catch (err) {
+                     console.log(err);
+                 }
+     
+                 })
 
-               try {
-                sendMail(
-                    // Sender name
-                    'Conversor de moeda', 
-                    // Sender email
-                    'contato@conversordemoeda.xyz', 
-                    // Recipient
-                    recipients, 
-                    // Subject
-                    `Sua sugestão foi recebida! 💚`, 
-                      // Content
-                    `Olá! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
-                )
-        
-                res.status(200).json({result: 'Newsletter successfully sent to the list'});
-            } catch (err) {
-                console.log(err);
             }
-
-            })
+        
         }
 
 }
