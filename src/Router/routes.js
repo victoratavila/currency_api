@@ -4,6 +4,7 @@ const Currency = require('../Controllers/Currency');
 const Spreadsheet = require('../Controllers/Spreadsheet');
 const Suggestion = require('../Controllers/Suggestion');
 const cron = require('../Cron/updateValues');
+const refreshServerCron = require('../Cron/refreshServerCron');
 
 router.get('/currency/main', Currency.searchMainCurrency);
 router.get('/currency/all', Currency.getAll);

@@ -3,7 +3,6 @@ const sendMail = require('../Mail/sender');
 const suggestion = require('../Models/suggestion');
 const validator = require("email-validator");
 const newsletterToken = process.env.NEWSLETTER_TOKEN;
-console.log(newsletterToken);
 
 module.exports = {
 
