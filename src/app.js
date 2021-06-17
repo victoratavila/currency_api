@@ -4,11 +4,11 @@ const connection = require('./database/connection');
 const routes = require('./Router/routes');
 const cors = require('cors');
 
-if(process.env.PROD == undefined){
-    var PORT = 8080
-} else {
-    var PORT = process.env.PORT;
-}
+// if(process.env.PROD == undefined){
+//     var PORT = 8080
+// } else {
+//     var PORT = process.env.PORT;
+// }
 
 // Setting cors
 app.use(cors());
@@ -29,6 +29,6 @@ app.use(express.static(__dirname + '/public'));
 app.use(routes);
 
 // Server listener
-app.listen(PORT, () => {
+app.listen(process.env.PORT || 8080, () => {
     console.log('The server is running');
 })
