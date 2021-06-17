@@ -33,18 +33,18 @@ module.exports = {
                     suggestion: suggestionSent
                 }).then((response) => {
                         try {
-                            // sendMail(
-                            //     // Sender name
-                            //     'Conversor de moeda', 
-                            //     // Sender email
-                            //     'contato@conversordemoeda.xyz', 
-                            //     // Recipient
-                            //     `${email.trim()}`, 
-                            //     // Subject
-                            //     `Sua sugestão foi recebida, ${username.trim()}! 💚`, 
-                            //       // Content
-                            //     `Olá, ${username}! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
-                            // )
+                            sendMail(
+                                // Sender name
+                                'Conversor de moeda', 
+                                // Sender email
+                                'contato@conversordemoeda.xyz', 
+                                // Recipient
+                                `${email.trim()}`, 
+                                // Subject
+                                `Sua sugestão foi recebida, ${username.trim()}! 💚`, 
+                                  // Content
+                                `Olá, ${username}! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
+                            )
                     
                             res.status(200).json({result: 'Sugestão enviada com sucesso! Você receberá uma confirmação no e-mail ' + email})
                         } catch (err) {
