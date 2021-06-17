@@ -7,7 +7,7 @@ const cors = require('cors');
 if(process.env.PROD == undefined){
     var PORT = 8080
 } else {
-    var PORT = 3000
+    var PORT = process.env.PORT;
 }
 
 // Setting cors
