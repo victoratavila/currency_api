@@ -22,7 +22,7 @@ const getData = async (url) => {
 }
 
 // const baseURL = 'http://localhost:8080/currency';
-const baseURL = 'http://currencyconverter-com.umbler.net/currency';
+const baseURL = 'http://currencycoverter-api.herokuapp.com/currency';
 
 
 describe('API Currency values', () => {
