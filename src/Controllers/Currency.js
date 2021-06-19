@@ -147,6 +147,10 @@ module.exports = {
             "status": true
         }
         res.json(process);
+    },
+
+    async invalidRoute(req, res){
+        res.status(404).json({error: 'This is not a valid endpoint'});
     }
 
 }
