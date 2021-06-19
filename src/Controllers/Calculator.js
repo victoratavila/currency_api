@@ -47,7 +47,6 @@ module.exports = {
                                     "To currency code": to_currency_symbol,
                                     "result": convertedResult
                                 })
-                                console.log( `${from.dataValues.code} = ${from_currency_price} ${to.dataValues.code} = ${to_currency_price}` )
                        
                             }
                 
