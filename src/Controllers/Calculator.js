@@ -40,11 +40,11 @@ module.exports = {
     
                                 const convertedResult = ((from_currency_price * from_currency_value)/to_currency_price).toFixed(2);
                                 res.status(200).json({
-                                    "Converted from": from_currency_code,
-                                    "Converted from symbol": from_currency_symbol,
-                                    "Value converted": from_currency_value,
-                                    "To currency": to_currency_code,
-                                    "To currency code": to_currency_symbol,
+                                    "converted_from": from_currency_code.toUpperCase(),
+                                    "converted_from_symbol": from_currency_symbol,
+                                    "value_converted": from_currency_value,
+                                    "to_currency": to_currency_code.toUpperCase(),
+                                    "to_currency_code": to_currency_symbol,
                                     "result": convertedResult
                                 })
                        

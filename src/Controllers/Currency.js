@@ -47,7 +47,7 @@ module.exports = {
     // Create new currency 
     async createCurrency(req, res){
 
-        const { currencyName, value, code, symbol, lastUpdate } = req.body;
+        const { currencyName, slug, value, code, symbol, lastUpdate } = req.body;
 
         await currency.findOne({
             where: {
@@ -61,11 +61,12 @@ module.exports = {
                 res.status(400).json({err: 'This currency was already registered'})
             } else {
                 await currency.create({
-                    currency: slugify(currencyName, {
+                    currency: currencyName,
+                    value: value,
+                    slug: slugify(currencyName, {
                         replacement: '-',
                         lower: true
                     }),
-                    value: value,
                     code: code,
                     symbol: symbol,
                     lastUpdate: lastUpdate
@@ -82,26 +83,20 @@ module.exports = {
 
     // Update values
     async updateCurrency(req, res){
-        const { currencyName, value, lastUpdate } = req.body;
+        const { slug, value, lastUpdate } = req.body;
 
         await currency.update({
 
-            currency: slugify(currencyName, {
-                replacement: '-',
-                lower: true
-            }),
+            slug: slug,
             value: value,
             lastUpdate: lastUpdate
             
         }, {
             where: {
-                currency: slugify(currencyName, {
-                    replacement: '-',
-                    lower: true
-                })
+                slug: slug
             }
         }).then(() => {
-            res.json({result: `${currencyName} was successfully updated`});
+            res.json({result: `${slug} was successfully updated`});
         }).catch(err => {
             console.log(err);
         })
@@ -133,7 +128,7 @@ module.exports = {
     async searchMainCurrency(req, res){
         await currency.findAll({
             where: {
-                currency: ['dollar', 'euro', 'pound']
+                slug: ['dolar', 'euro', 'libra']
             }
         }).then(response => {
             res.json(response);
@@ -151,6 +146,28 @@ module.exports = {
 
     async invalidRoute(req, res){
         res.status(404).json({error: 'This is not a valid endpoint'});
+    },
+
+    async searchBySlug(req, res){
+
+        const { slug } = req.params;
+
+        await currency.findOne({
+            where: {
+                slug: slug
+            }
+        }).then(result => {
+
+           console.log(result);
+           if(result == null){
+               res.status(404).json({error: `No registers found related to the slug ${slug}`});
+           } else {
+               res.status(200).json(result.dataValues);
+           }
+          
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
 }

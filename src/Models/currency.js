@@ -8,6 +8,11 @@ const Currency = connection.define("currency", {
         allowNull: false
     },
 
+    slug: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+
     value: {
         type: Sequelize.FLOAT,
         allowNull: false

@@ -40,11 +40,11 @@ cron.schedule(periodToRun, async () => {
         var dollar = dollar.replace(",",".");
 
         await axios.put(URL, { 
-            currencyName: 'dollar',
+            slug: 'dolar',
             value: dollar,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Dolar - ' + 'R$ ' + dollar);
+            console.log('Dólar - ' + 'R$ ' + dollar);
         }).catch(err => {
             console.log(err);
         });
@@ -58,7 +58,7 @@ cron.schedule(periodToRun, async () => {
     var euro = euro.replace(",",".");
 
         await axios.put(URL, { 
-            currencyName: 'euro',
+            slug: 'euro',
             value: euro,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
@@ -76,11 +76,11 @@ cron.schedule(periodToRun, async () => {
     var libra = libra.replace(",",".");
 
         await axios.put(URL, { 
-            currencyName: 'pound',
+            slug: 'libra',
             value: libra,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Pound - ' + 'R$ ' + libra);
+            console.log('Libra - ' + 'R$ ' + libra);
         }).catch(err => {
             console.log(err);
         });
@@ -95,11 +95,11 @@ cron.schedule(periodToRun, async () => {
     var dolarCanadense = dolarCanadense.replace(",",".");
 
         await axios.put(URL, { 
-            currencyName: 'canadian-dollar',
+            slug: 'dolar-canadense',
             value: dolarCanadense,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Canadian - ' + 'R$ ' + dolarCanadense);
+            console.log('Dólar Canadense - ' + 'R$ ' + dolarCanadense);
         }).catch(err => {
             console.log(err);
         });
@@ -113,7 +113,7 @@ cron.schedule(periodToRun, async () => {
     var iene = iene.replace(",",".");
 
         await axios.put(URL, { 
-            currencyName: 'yen',
+            slug: 'iene',
             value: iene,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
@@ -131,11 +131,11 @@ cron.schedule(periodToRun, async () => {
     var dollarAustraliano = dollarAustraliano.replace(",",".");
 
         await axios.put(URL, { 
-            currencyName: 'australian-dollar',
+            slug: 'dolar-australiano',
             value: dollarAustraliano,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Australian dollar - ' + 'R$ ' + dollarAustraliano);
+            console.log('Dólar Australiano  - ' + 'R$ ' + dollarAustraliano);
         }).catch(err => {
             console.log(err);
         });
@@ -149,11 +149,11 @@ cron.schedule(periodToRun, async () => {
     var pesoMexicano = pesoMexicano.replace(",",".");
 
         await axios.put(URL, { 
-            currencyName: 'mexican-peso',
+            slug: 'peso-mexicano',
             value: pesoMexicano,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Mexican peso - ' + 'R$ ' + pesoMexicano);
+            console.log('Peso Mexicano - ' + 'R$ ' + pesoMexicano);
         }).catch(err => {
             console.log(err);
         });
@@ -167,11 +167,11 @@ cron.schedule(periodToRun, async () => {
     var pesoArgentino = pesoArgentino.replace(",",".");
 
         await axios.put(URL, { 
-            currencyName: 'argentine-peso',
+            slug: 'peso-argentino',
             value: pesoArgentino,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Argentine peso - ' + 'R$ ' + pesoArgentino);
+            console.log('Peso Argentino - ' + 'R$ ' + pesoArgentino);
         }).catch(err => {
             console.log(err);
         });
@@ -185,11 +185,11 @@ cron.schedule(periodToRun, async () => {
     var pesoColombiano = pesoColombiano.replace(",",".");
 
         await axios.put(URL, { 
-            currencyName: 'colombian-peso',
+            slug: 'peso-colombiano',
             value: pesoColombiano,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Colombian peso - ' + 'R$ ' + pesoColombiano);
+            console.log('Peso Colombiano - ' + 'R$ ' + pesoColombiano);
         }).catch(err => {
             console.log(err);
         });
@@ -203,11 +203,11 @@ cron.schedule(periodToRun, async () => {
     var pesoChileno = pesoChileno.replace(",",".");
 
         await axios.put(URL, { 
-            currencyName: 'chilean-peso',
+            slug: 'peso-chileno',
             value: pesoChileno,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Chilean peso - ' + 'R$ ' + pesoChileno);
+            console.log('Peso Chileno - ' + 'R$ ' + pesoChileno);
         }).catch(err => {
             console.log(err);
         });
@@ -221,7 +221,7 @@ cron.schedule(periodToRun, async () => {
     var dirham = dirham.replace(",",".");
 
         await axios.put(URL, { 
-            currencyName: 'dirham',
+            slug: 'dirham',
             value: dirham,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
@@ -239,7 +239,7 @@ cron.schedule(periodToRun, async () => {
     var francoSuico = francoSuico.replace(",",".");
 
         await axios.put(URL, { 
-            currencyName: 'swiss-franc',
+            slug: 'franco-suico',
             value: francoSuico,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
@@ -257,11 +257,11 @@ cron.schedule(periodToRun, async () => {
     var renminbi = renminbi.replace(",",".");
 
         await axios.put(URL, { 
-            currencyName: 'renminbi',
+            slug: 'yuan',
             value: renminbi,
             lastUpdate: moment().locale('pt-br').format('L')
         }).then(() => {
-            console.log('Renminbi - ' + 'R$ ' + renminbi);
+            console.log('Yuan - ' + 'R$ ' + renminbi);
         }).catch(err => {
             console.log(err);
         });
