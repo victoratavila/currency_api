@@ -2,6 +2,7 @@ const express = require('express');
 const sendMail = require('../Mail/sender');
 const suggestion = require('../Models/suggestion');
 const validator = require("email-validator");
+const Suggestion = require('../Models/suggestion');
 const newsletterToken = process.env.NEWSLETTER_TOKEN;
 
 module.exports = {
@@ -12,6 +13,43 @@ module.exports = {
         }).catch(err => {
             console.log(err);
         })
+    },
+
+    async getSuggestionPage(req, res){
+
+        const { num } = req.params; 
+        var offset;
+
+        if(isNaN(num) || num == 1){
+            var offset = 0;
+        } else {
+            var offset = (parseInt(num) - 1) * 4;
+        }
+
+        Suggestion.findAndCountAll({
+            limit: 4,
+            offset: offset
+        }).then(suggestion => {
+
+            var next;
+            if(offset + 4 >= suggestion.count){
+                next = false;
+            } else {
+                next = true;
+            }
+
+            const result = {
+                page: parseInt(num),
+                next: next,
+                suggestion: suggestion
+            }
+
+            res.json(result);
+        }).catch(err => {
+            console.log(err);
+        });
+
+        
     },
     
     async sendSuggestion(req, res){

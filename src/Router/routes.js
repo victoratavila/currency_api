@@ -17,6 +17,7 @@ router.get('/currency/slug/:slug', Currency.searchBySlug);
 router.get('/status', Currency.status);
 router.post('/suggestion', Suggestion.sendSuggestion);
 router.get('/suggestion', Suggestion.getSuggestions)
+router.get('/suggestion/page/:num', Suggestion.getSuggestionPage);
 router.post('/newsletter', Suggestion.sendNewsletter);
 
 router.post('/calculator', Calculator.Calculator);
