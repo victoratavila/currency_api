@@ -41,7 +41,7 @@ module.exports = {
             const result = {
                 page: parseInt(num),
                 next: next,
-                suggestion: suggestion
+                suggestion: suggestion,
             }
 
             res.json(result);
