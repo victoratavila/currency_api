@@ -16,6 +16,11 @@ const Suggestion = connection.define("suggestion", {
     suggestion: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+
+    status: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 
   });

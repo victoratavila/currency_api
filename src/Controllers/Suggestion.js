@@ -38,11 +38,22 @@ module.exports = {
                 next = true;
             }
 
+            const amount = suggestion.count;
+            const pages = amount % 4;
+
+            if(pages == 0){
+                var amountOfPages = amount/4;
+            } else {
+                var amountOfPages = Math.ceil(amount/4);
+            }
+
             const result = {
-                page: parseInt(num),
+                maxPages: amountOfPages,
                 next: next,
                 suggestion: suggestion,
             }
+
+            console.log(amountOfPages);
 
             res.json(result);
         }).catch(err => {
@@ -67,26 +78,26 @@ module.exports = {
                 await suggestion.create({
                     email: email,
                     username: username,
-                    suggestion: suggestionSent
+                    suggestion: suggestionSent,
+                    status: "pending"
                 }).then((response) => {
                         try {
-                            sendMail(
-                                // Sender name
-                                'Conversor de moeda', 
-                                // Sender email
-                                'contato@conversordemoeda.xyz', 
-                                // Recipient
-                                `${email.trim()}`, 
-                                // Subject
-                                `Sua sugestão foi recebida, ${username.trim()}! 💚`, 
-                                  // Content
-                                `Olá, ${username}! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
-                            )
+                            // sendMail(
+                            //     // Sender name
+                            //     'Conversor de moeda', 
+                            //     // Sender email
+                            //     'contato@conversordemoeda.xyz', 
+                            //     // Recipient
+                            //     `${email.trim()}`, 
+                            //     // Subject
+                            //     `Sua sugestão foi recebida, ${username.trim()}! 💚`, 
+                            //       // Content
+                            //     `Olá, ${username}! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
+                            // )
                     
                             res.status(200).json({result: 'Sugestão enviada com sucesso! Você receberá uma confirmação no e-mail ' + email})
                         } catch (err) {
                             console.log(err);
-                            res.status(200).result({result: 'Sugestão enviada com sucesso!'})
                         }
                     
                 }).catch(err => {
