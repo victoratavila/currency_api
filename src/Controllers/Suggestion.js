@@ -27,6 +27,10 @@ module.exports = {
         }
 
         Suggestion.findAndCountAll({
+            where: {
+                status: 'approved'
+            }
+        }, {
             limit: 4,
             offset: offset
         }).then(suggestion => {
@@ -82,18 +86,18 @@ module.exports = {
                     status: "pending"
                 }).then((response) => {
                         try {
-                            // sendMail(
-                            //     // Sender name
-                            //     'Conversor de moeda', 
-                            //     // Sender email
-                            //     'contato@conversordemoeda.xyz', 
-                            //     // Recipient
-                            //     `${email.trim()}`, 
-                            //     // Subject
-                            //     `Sua sugestão foi recebida, ${username.trim()}! 💚`, 
-                            //       // Content
-                            //     `Olá, ${username}! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
-                            // )
+                            sendMail(
+                                // Sender name
+                                'Conversor de moeda', 
+                                // Sender email
+                                'contato@conversordemoeda.xyz', 
+                                // Recipient
+                                `${email.trim()}`, 
+                                // Subject
+                                `Sua sugestão foi recebida, ${username.trim()}! 💚`, 
+                                  // Content
+                                `Olá, ${username}! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
+                            )
                     
                             res.status(200).json({result: 'Sugestão enviada com sucesso! Você receberá uma confirmação no e-mail ' + email})
                         } catch (err) {
@@ -151,6 +155,41 @@ module.exports = {
 
             }
         
+        },
+
+        async approveOrReject(req, res){
+            const { id } = req.params;
+            const { status } = req.body;
+
+            await Suggestion.findOne({
+
+                where: {
+                    id: id
+                }
+
+            }).then(response => {
+
+                if(response == null){
+                    res.status(400).json({result: 'Please provide an existing suggestion ID to approve or reject'});
+                } else {
+                    if(status == null || status == undefined || status == ""){
+                        res.status(400).json({result: 'Please provide the status of this suggestion to update it'});
+                    } else {
+                        Suggestion.update({
+                            status: status
+                        }, { where: {
+                            id: id
+                        }}).then(result => {
+                            res.status(200).json({result: `Status of the suggestion ${response.suggestion} updated to ${status}`})
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                    }
+                }
+  
+            }).catch(err => {
+                console.log(err);
+            })
         }
 
 }

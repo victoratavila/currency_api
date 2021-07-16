@@ -17,7 +17,7 @@ router.get('/currency/slug/:slug', Currency.searchBySlug);
 router.get('/status', Currency.status);
 router.post('/suggestion', Suggestion.sendSuggestion);
 router.get('/suggestion', Suggestion.getSuggestions)
-router.get('/suggestion/page/:num', Suggestion.getSuggestionPage);
+router.get('/suggestion/approved/page/:num', Suggestion.getSuggestionPage);
 router.post('/newsletter', Suggestion.sendNewsletter);
 
 router.post('/calculator', Calculator.Calculator);
@@ -27,7 +27,10 @@ router.post('/login', Login.login);
 
 router.post('/create-user', User.createUser);
 
+router.put('/currency/suggestion/:id', Suggestion.approveOrReject);
+
 // Return 404 error if route does not exist
 router.get('*', Currency.invalidRoute);
+
 
 module.exports = router;
