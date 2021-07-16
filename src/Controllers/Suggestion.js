@@ -28,7 +28,7 @@ module.exports = {
 
         Suggestion.findAndCountAll({
             where: {
-                status: 'approved'
+                status: 'pending'
             }
         }, {
             limit: 4,
