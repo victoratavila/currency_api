@@ -29,10 +29,9 @@ module.exports = {
         Suggestion.findAndCountAll({
             where: {
                 status: 'pending'
-            }
-        }, {
-            limit: 4,
-            offset: offset
+             },
+             offset: offset,
+             limit: 4
         }).then(suggestion => {
 
             var next;
