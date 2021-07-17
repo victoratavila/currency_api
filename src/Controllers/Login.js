@@ -9,9 +9,9 @@ module.exports = {
 
     async login(req, res){
 
-        const data = { email, password, admin } = req.body;
+        const data = { email, password } = req.body;
         
-        if(data.email  != null && data.password != null && data.admin != null){
+        if(data.email  != null && data.password != null){
 
             User.findOne({
                 
@@ -20,7 +20,7 @@ module.exports = {
              }
             
             }).then(result => {
-                
+
                 if(result == null){
 
                     res.status(403).json({result: 'No user found related to the provided e-mail'});

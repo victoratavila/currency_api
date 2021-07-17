@@ -56,7 +56,6 @@ module.exports = {
                 suggestion: suggestion,
             }
 
-            console.log(amountOfPages);
 
             res.json(result);
         }).catch(err => {
