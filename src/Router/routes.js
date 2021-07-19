@@ -29,7 +29,7 @@ router.post('/login', Login.login);
 
 router.post('/create-user', User.createUser);
 
-router.put('/currency/suggestion/:id', Auth, Suggestion.approveOrReject);
+router.put('/currency/suggestion/:id', Suggestion.approveOrReject);
 
 router.get('/validate-token', Login.validateToken);
 
