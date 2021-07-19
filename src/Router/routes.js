@@ -13,7 +13,7 @@ router.get('/currency/main', Currency.searchMainCurrency);
 router.get('/currency/all', Currency.getAll);
 router.get('/currency/:currencyName', Currency.getCurrency);
 router.post('/currency/new', Auth, Currency.createCurrency);
-router.put('/currency/update', Auth, Currency.updateCurrency);
+router.put('/currency/update', Currency.updateCurrency);
 router.get('/currency/code/:code', Currency.searchByCode);
 router.get('/currency/slug/:slug', Currency.searchBySlug);
 router.get('/status', Currency.status);
