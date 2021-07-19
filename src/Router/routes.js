@@ -19,7 +19,7 @@ router.get('/currency/slug/:slug', Currency.searchBySlug);
 router.get('/status', Currency.status);
 router.post('/suggestion', Suggestion.sendSuggestion);
 router.get('/suggestion', Auth, Suggestion.getSuggestions)
-router.get('/suggestion/pending/page/:num', Auth, Suggestion.getSuggestionPage);
+router.get('/suggestion/pending/page/:num', Suggestion.getSuggestionPage);
 router.post('/newsletter', Auth, Suggestion.sendNewsletter);
 
 router.post('/calculator', Calculator.Calculator);
