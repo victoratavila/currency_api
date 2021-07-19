@@ -58,6 +58,24 @@ module.exports = {
             res.status(400).json({result: 'Provide all login details to login'});
         }
         
-    } 
+    },
+
+    validateToken(req, res) {
+        const { token } = req.headers;
+
+        if(token != undefined && token != null && token != ""){
+
+            jwt.verify(token, secret, function(err, decoded) {
+                if(err) {
+                    res.status(403).json({result: 'Invalid or expired token'});
+                } if (decoded) {
+                    res.status(200).json({result: 'Valid token'});
+                }
+            })
+
+        } else {
+            res.status(400).json({result: 'Please provide a token to validate'});
+        }
+    }
     
 }
