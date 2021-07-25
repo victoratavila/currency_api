@@ -14,3 +14,11 @@ Simple Node.js API that combines schedule functions and web scrapping to keep th
 npm install
 npm start
 ```
+
+##  Run migrations 
+cd src/database
+npx sequelize db:migrate
+
+## Run seeders
+cd src/database
+npx sequelize-cli db:seed:all

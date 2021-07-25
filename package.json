@@ -28,9 +28,11 @@
     "node-cron": "^2.0.3",
     "nodemailer": "^6.5.0",
     "sequelize": "^5.22.2",
-    "slugify": "^1.4.6"
+    "slugify": "^1.4.6",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "jest": "^26.6.3"
+    "jest": "^26.6.3",
+    "sequelize-cli": "^6.2.0"
   }
 }
