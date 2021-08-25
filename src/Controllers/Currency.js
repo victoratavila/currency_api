@@ -5,7 +5,6 @@ var slugify = require('slugify');
 
 module.exports = {
 
-    // Get all currencies
     async getAll(req, res){
         await currency.findAll({
             order: [
@@ -16,6 +15,37 @@ module.exports = {
         }).catch(err => {
             console.log(err);
         })
+    },
+
+    // Get all currencies by order
+    async getAllByOrder(req, res){
+
+        const { order } = req.params;
+
+        if(order == 'lower'){
+            await currency.findAll({
+                order: [
+                    ['value', 'ASC']
+                ]
+            }).then(currency => {
+                res.json(currency);
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+
+        if(order == 'higher'){
+            await currency.findAll({
+                order: [
+                    ['value', 'DESC']
+                ]
+            }).then(currency => {
+                res.json(currency);
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+
     },
 
 

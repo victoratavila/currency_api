@@ -2,15 +2,15 @@ const express = require('express');
 const router = express.Router();
 const Currency = require('../Controllers/Currency');
 const Suggestion = require('../Controllers/Suggestion');
-const cron = require('../Cron/updateValues');
 const Calculator = require('../Controllers/Calculator');
 const User = require('../Controllers/User');  
 const Login = require('../Controllers/Login');
 const Auth = require('../Middleware/auth');
-
+const Cron =  require('../Cron/updateValues');
 
 router.get('/currency/main', Currency.searchMainCurrency);
 router.get('/currency/all', Currency.getAll);
+router.get('/currency/all/:order', Currency.getAllByOrder);
 router.get('/currency/:currencyName', Currency.getCurrency);
 router.post('/currency/new', Auth, Currency.createCurrency);
 router.put('/currency/update', Currency.updateCurrency);

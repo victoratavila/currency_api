@@ -3,8 +3,8 @@ const path = require('path');
 module.exports = {
   "development": {
     "username": 'root',
-    "password": '',
-    "database": '',
+    "password": '123456',
+    "database": 'cotacao_api',
     "host": 'localhost',
     "dialect": "mysql"
   },
