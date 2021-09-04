@@ -8,7 +8,7 @@ const Login = require('../Controllers/Login');
 const Auth = require('../Middleware/auth');
 const Cron =  require('../Cron/updateValues');
 
-router.get('/currency/main', Currency.searchMainCurrency);
+router.get('/currency/include/:currencyName', Currency.getCurrencyIncluding);
 router.get('/currency/all', Currency.getAll);
 router.get('/currency/all/:order', Currency.getAllByOrder);
 router.get('/currency/:currencyName', Currency.getCurrency);

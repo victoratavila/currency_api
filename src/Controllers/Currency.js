@@ -48,6 +48,26 @@ module.exports = {
 
     },
 
+    async getCurrencyIncluding(req, res){
+        const {currencyName} = req.params;
+
+        currency.findAll({
+            where: {
+                currency: sequelize.where(sequelize.fn('LOWER', sequelize.col('currency')), 'LIKE', '%' + currencyName + '%')
+            }
+        }).then(result => {
+
+            if(result){
+                res.json(result);
+            } else {
+                res.json({result: 'not found'})
+            }
+        
+        }).catch(err => {
+            console.log(err);
+        })
+    },
+
 
     // Get currency by name
     async getCurrency(req, res){
