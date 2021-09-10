@@ -16,13 +16,15 @@ const urlFracoSuico = 'https://www.melhorcambio.com/franco-suico-hoje';
 const urlRenminbi = 'https://www.melhorcambio.com/iuan-hoje';
 const moment = require('moment');
 
+// Cron job responsible for storing the currency values of the day at 23:59
+
 // Run every minute when developing and every 1h in production
 if(process.env.PROD == undefined){
-    var periodToRun = '* * * * *';
-    var URL = 'http://localhost:8080/currency/update';
+    var periodToRun = '55 23 * * *';
+    var URL = 'http://localhost:8080/currency/store/previousday';
 } else {
-    var periodToRun = '0 * * * *';
-    var URL = `https://currencycoverter-api.herokuapp.com/currency/update`;
+    var periodToRun = '55 23 * * *';
+    var URL = `https://currencycoverter-api.herokuapp.com/currency/store/previousday`;
 }
 
 // Function to fetch the url html

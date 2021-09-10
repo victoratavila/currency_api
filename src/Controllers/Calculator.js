@@ -2,6 +2,7 @@ const express = require('express');
 const sequelize = require('sequelize');
 const Currency = require('../Models/currency');
 
+
 module.exports = {
     async Calculator(req, res){
         const { from_currency_code, from_currency_value, to_currency_code } = req.body;

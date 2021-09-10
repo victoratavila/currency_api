@@ -3,6 +3,7 @@ const currency = require('../Models/currency');
 const sequelize = require('sequelize');
 var slugify = require('slugify');
 const redis = require('redis');
+const previousdayvalues = require('../Models/previousdayvalues');
 
 const REDIS_URL = process.env.REDIS_URL || 6379;
 const client = redis.createClient(REDIS_URL);
@@ -11,6 +12,19 @@ module.exports = {
 
     async getAll(req, res){
         await currency.findAll({
+            order: [
+                ['currency', 'ASC']
+            ]
+        }).then(currency => {
+            res.json(currency);
+            client.setex('currency', 3600, JSON.stringify(currency));
+        }).catch(err => {
+            console.log(err);
+        })
+    },
+
+    async getAllFromYesterday(req, res){
+        await previousdayvalues.findAll({
             order: [
                 ['currency', 'ASC']
             ]
@@ -144,6 +158,27 @@ module.exports = {
         const { slug, value, lastUpdate } = req.body;
 
         await currency.update({
+
+            slug: slug,
+            value: value,
+            lastUpdate: lastUpdate
+            
+        }, {
+            where: {
+                slug: slug
+            }
+        }).then(() => {
+            res.json({result: `${slug} was successfully updated`});
+        }).catch(err => {
+            console.log(err);
+        })
+    },
+
+      // Update values
+      async updatePreviousDayCurrency(req, res){
+        const { slug, value, lastUpdate } = req.body;
+
+        await previousdayvalues.update({
 
             slug: slug,
             value: value,
