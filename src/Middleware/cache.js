@@ -14,10 +14,8 @@ module.exports = {
     
             if(currency !== null){
                 res.json(JSON.parse(currency));
-                console.log('com cache')
             } else {
                 next();
-                console.log('sem cache')
             }
         })
     },
@@ -50,10 +48,8 @@ module.exports = {
     
             if(currency !== null){
                 res.json(JSON.parse(currency));
-                console.log('com cache')
             } else {
                 next();
-                console.log('sem cache')
             }
         })
     },
@@ -68,10 +64,8 @@ module.exports = {
             }
     
             if(currency !== null){
-                console.log('com cache')
                 res.json(JSON.parse(currency));
             } else {
-                console.log('sem cache')
                 next();
             }
         })
@@ -86,11 +80,9 @@ module.exports = {
             }
     
             if(currency !== null){
-                console.log('com cache')
                 res.json(JSON.parse(currency));
     
             } else {
-                console.log('sem cache')
                 next();
             }
         })
