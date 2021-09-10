@@ -5,6 +5,10 @@ const validator = require("email-validator");
 const Suggestion = require('../Models/suggestion');
 const newsletterToken = process.env.NEWSLETTER_TOKEN;
 
+const redis = require('redis');
+const REDIS_URL = process.env.REDIS_URL || 6379;
+const client = redis.createClient(REDIS_URL);
+
 module.exports = {
 
     async getSuggestions(req, res){
@@ -58,6 +62,8 @@ module.exports = {
 
 
             res.json(result);
+            client.setex(`page${num}`, 3600, JSON.stringify(result));
+
         }).catch(err => {
             console.log(err);
         });
