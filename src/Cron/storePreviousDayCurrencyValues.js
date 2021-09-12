@@ -23,7 +23,7 @@ if(process.env.PROD == undefined){
     var periodToRun = '55 23 * * *';
     var URL = 'http://localhost:8080/currency/store/previousday';
 } else {
-    var periodToRun = '55 23 * * *';
+    var periodToRun = '* * * * *';
     var URL = `https://currencycoverter-api.herokuapp.com/currency/store/previousday`;
 }
 
