@@ -18,12 +18,12 @@ const moment = require('moment');
 
 // Cron job responsible for storing the currency values of the day at 23:59
 
-// Run every minute when developing and every 1h in production
+// Run every minute when developing and every 23:50 in production
 if(process.env.PROD == undefined){
-    var periodToRun = '55 23 * * *';
+    var periodToRun = '50 23 * * *';
     var URL = 'http://localhost:8080/currency/store/previousday';
 } else {
-    var periodToRun = '* * * * *';
+    var periodToRun = '50 23 * * *';
     var URL = `https://currencycoverter-api.herokuapp.com/currency/store/previousday`;
 }
 
