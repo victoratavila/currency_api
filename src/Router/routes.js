@@ -8,6 +8,7 @@ const Login = require('../Controllers/Login');
 const Auth = require('../Middleware/auth');
 const CronUpdateValues =  require('../Cron/updateValues');
 const CronStorePreviousDayValues =  require('../Cron/storePreviousDayCurrencyValues.js');
+const Reports = require('../Controllers/Reports');
 const cache = require('../Middleware/cache');
 
 router.get('/currency/include/:currencyName', cache.getCurrencyIncluding, Currency.getCurrencyIncluding);
@@ -25,6 +26,7 @@ router.post('/suggestion', Suggestion.sendSuggestion);
 router.get('/suggestion', Auth, Suggestion.getSuggestions)
 router.get('/suggestion/pending/page/:num', cache.getSuggestionPage, Suggestion.getSuggestionPage);
 router.post('/newsletter', Auth, Suggestion.sendNewsletter);
+router.get('/reports', Reports.compareValues);
 
 router.post('/calculator', Calculator.Calculator);
 
