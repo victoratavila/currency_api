@@ -62,7 +62,7 @@ module.exports = {
 
 
             res.json(result);
-            client.setex(`page${num}`, 3600, JSON.stringify(result));
+            client.setex(`page${num}`, 600, JSON.stringify(result));
 
         }).catch(err => {
             console.log(err);

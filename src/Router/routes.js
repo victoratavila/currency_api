@@ -13,7 +13,7 @@ const cache = require('../Middleware/cache');
 
 router.get('/currency/include/:currencyName', cache.getCurrencyIncluding, Currency.getCurrencyIncluding);
 router.get('/currency/all', cache.getAllCache, Currency.getAll);
-router.get('/currency/yesterday/all', cache.getAllCache, Currency.getAllFromYesterday);
+router.get('/currency/yesterday/all',Currency.getAllFromYesterday);
 router.get('/currency/all/:order',  cache.getAllByOrder, Currency.getAllByOrder);
 router.get('/currency/:currencyName', Currency.getCurrency);
 router.post('/currency/new', Auth, Currency.createCurrency);

@@ -21,7 +21,7 @@ if(process.env.PROD == undefined){
     var periodToRun = '* * * * *';
     var URL = 'http://localhost:8080/currency/update';
 } else {
-    var periodToRun = '0 * * * *';
+    var periodToRun = '*/30 * * * *';
     var URL = `https://currencycoverter-api.herokuapp.com/currency/update`;
 }
 

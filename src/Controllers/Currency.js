@@ -17,7 +17,7 @@ module.exports = {
             ]
         }).then(currency => {
             res.json(currency);
-            client.setex('currency', 3600, JSON.stringify(currency));
+            client.setex('currency', 600, JSON.stringify(currency));
         }).catch(err => {
             console.log(err);
         })
@@ -30,7 +30,6 @@ module.exports = {
             ]
         }).then(currency => {
             res.json(currency);
-            client.setex('currency', 3600, JSON.stringify(currency));
         }).catch(err => {
             console.log(err);
         })
@@ -48,7 +47,7 @@ module.exports = {
                 ]
             }).then(currency => {
                 res.json(currency);
-                client.setex('lower', 3600, JSON.stringify(currency));
+                client.setex('lower', 600, JSON.stringify(currency));
             }).catch(err => {
                 console.log(err);
             })
@@ -61,7 +60,7 @@ module.exports = {
                 ]
             }).then(currency => {
                 res.json(currency);
-                client.setex('higher', 3600, JSON.stringify(currency));
+                client.setex('higher', 600, JSON.stringify(currency));
             }).catch(err => {
                 console.log(err);
             })
@@ -80,7 +79,7 @@ module.exports = {
 
             if(result){
                 res.json(result);
-                client.setex(currencyName, 3600, JSON.stringify(result));
+                client.setex(currencyName, 600, JSON.stringify(result));
             } else {
                 res.json({result: 'not found'})
             }
@@ -211,7 +210,8 @@ module.exports = {
                 res.status(404).json({error: `Currency related to the code ${code} not found`});
             } else {
                 res.json(currency);
-                client.setex(code, 3600, JSON.stringify(currency));
+         
+                client.setex(code, 600, JSON.stringify(currency));
             }
            
         }).catch(err => {
