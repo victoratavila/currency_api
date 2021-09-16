@@ -6,25 +6,24 @@ const Calculator = require('../Controllers/Calculator');
 const User = require('../Controllers/User');  
 const Login = require('../Controllers/Login');
 const Auth = require('../Middleware/auth');
+const Reports = require('../Controllers/Reports');
 const CronUpdateValues =  require('../Cron/updateValues');
 const CronStorePreviousDayValues =  require('../Cron/storePreviousDayCurrencyValues.js');
-const Reports = require('../Controllers/Reports');
-const cache = require('../Middleware/cache');
 
-router.get('/currency/include/:currencyName', cache.getCurrencyIncluding, Currency.getCurrencyIncluding);
-router.get('/currency/all', cache.getAllCache, Currency.getAll);
+router.get('/currency/include/:currencyName', Currency.getCurrencyIncluding);
+router.get('/currency/all', Currency.getAll);
 router.get('/currency/yesterday/all',Currency.getAllFromYesterday);
-router.get('/currency/all/:order',  cache.getAllByOrder, Currency.getAllByOrder);
+router.get('/currency/all/:order', Currency.getAllByOrder);
 router.get('/currency/:currencyName', Currency.getCurrency);
 router.post('/currency/new', Auth, Currency.createCurrency);
 router.put('/currency/update', Currency.updateCurrency);
 router.put('/currency/store/previousday', Currency.updatePreviousDayCurrency);
-router.get('/currency/code/:code', cache.getCurrencyByCode, Currency.searchByCode);
+router.get('/currency/code/:code', Currency.searchByCode);
 router.get('/currency/slug/:slug', Currency.searchBySlug);
 router.get('/status', Currency.status);
 router.post('/suggestion', Suggestion.sendSuggestion);
 router.get('/suggestion', Auth, Suggestion.getSuggestions)
-router.get('/suggestion/pending/page/:num', cache.getSuggestionPage, Suggestion.getSuggestionPage);
+router.get('/suggestion/pending/page/:num', Suggestion.getSuggestionPage);
 router.post('/newsletter', Auth, Suggestion.sendNewsletter);
 router.get('/reports', Reports.compareValues);
 

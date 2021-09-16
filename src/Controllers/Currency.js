@@ -2,11 +2,8 @@ const express = require('express');
 const currency = require('../Models/currency');
 const sequelize = require('sequelize');
 var slugify = require('slugify');
-const redis = require('redis');
 const previousdayvalues = require('../Models/previousdayvalues');
 
-const REDIS_URL = process.env.REDIS_URL || 6379;
-const client = redis.createClient(REDIS_URL);
 
 module.exports = {
 
@@ -17,7 +14,6 @@ module.exports = {
             ]
         }).then(currency => {
             res.json(currency);
-            client.setex('currency', 600, JSON.stringify(currency));
         }).catch(err => {
             console.log(err);
         })
@@ -47,7 +43,6 @@ module.exports = {
                 ]
             }).then(currency => {
                 res.json(currency);
-                client.setex('lower', 600, JSON.stringify(currency));
             }).catch(err => {
                 console.log(err);
             })
@@ -60,7 +55,6 @@ module.exports = {
                 ]
             }).then(currency => {
                 res.json(currency);
-                client.setex('higher', 600, JSON.stringify(currency));
             }).catch(err => {
                 console.log(err);
             })
@@ -79,7 +73,6 @@ module.exports = {
 
             if(result){
                 res.json(result);
-                client.setex(currencyName, 600, JSON.stringify(result));
             } else {
                 res.json({result: 'not found'})
             }
@@ -211,7 +204,6 @@ module.exports = {
             } else {
                 res.json(currency);
          
-                client.setex(code, 600, JSON.stringify(currency));
             }
            
         }).catch(err => {
