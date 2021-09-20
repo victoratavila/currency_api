@@ -19,24 +19,6 @@ module.exports = {
             raw: true
            }).then(yerterdayCurrencies => {
 
-            // for(let i = 0; i < currencies.length; i++){
-      
-            //   let yesterdayValue = currencies[i].dataValues.value;
-            //   let todayValue = yerterdayCurrencies[i].dataValues.value;
-
-            //   let currencyName = currencies[i].dataValues.slug;
-
-            //   if(todayValue > yesterdayValue){
-            //       let difference = (percentage.differenceBetween(todayValue, yesterdayValue)).toFixed(0);
-
-            //       results[currencyName] = `${difference}%`;
-
-            //   } else {
-            //     let difference = (percentage.differenceBetween(todayValue, yesterdayValue)).toFixed(0);
-
-            //     results[currencyName] = `${difference}%`;
-            //   }
-            // }
 
             async function searchYesterday(){
 
@@ -44,13 +26,22 @@ module.exports = {
                 let yesterdayValue = yesterday.value;
                 let slug = yesterday.slug;
 
+                // Checking if the slug exists in the original object
                 if(process[slug] != undefined){
                
                    let todayValue = process[slug];
  
+                   // Calculating the difference between yesterday value and today value
                    const difference = percentage.differenceBetween(yesterdayValue, todayValue).toFixed(2);
-         
-                  results[slug] = difference;
+                   console.log(difference.charAt(0))
+
+                   if(difference.charAt(0) != '-'){
+                    results[slug] = `+${difference}%`;
+                   } else {
+                    results[slug] = `${difference}%`;
+                   }
+               
+                  
 
                 }
                
