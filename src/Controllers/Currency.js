@@ -3,7 +3,7 @@ const currency = require('../Models/currency');
 const sequelize = require('sequelize');
 var slugify = require('slugify');
 const previousdayvalues = require('../Models/previousdayvalues');
-
+const percentage = require('calculate-percentages');
 
 module.exports = {
 
@@ -26,6 +26,76 @@ module.exports = {
             ]
         }).then(currency => {
             res.json(currency);
+        }).catch(err => {
+            console.log(err);
+        })
+    },
+
+    async getTodayAndYesterdayValues(req, res){
+
+        const { code } = req.params;
+
+        let finalResult = {
+        
+            yesterday: {
+                date: '',
+                currency: '',
+                code: '',
+                value: ''
+            },
+
+            today: {
+                date: '',
+                currency: '',
+                code: '',
+                value: ''
+            },
+
+            difference_between: '',
+            increased: false
+        }
+        await currency.findOne({
+            where: {
+                code: code
+            }
+        }).then(result => {
+            finalResult.today.date = result.lastUpdate;
+            finalResult.today.currency = result.currency;
+            finalResult.today.code = result.code;
+            finalResult.today.value = result.value;
+        
+            
+            previousdayvalues.findOne({
+                where: {
+                    code: code
+                }
+            }).then(yesterdayResult => {
+
+                finalResult.yesterday.currency = yesterdayResult.currency;
+                finalResult.yesterday.date = yesterdayResult.lastUpdate;
+                finalResult.yesterday.code = yesterdayResult.code;
+                finalResult.yesterday.value = yesterdayResult.value;
+
+                let difference = percentage.differenceBetween(yesterdayResult.value, result.value).toFixed(2);
+               
+                if(difference == 00){
+                       finalResult.difference_between = `${difference}%`;
+                       finalResult.increased = 'same';
+                   } else {
+                    if(difference.charAt(0) != '-'){
+                        finalResult.difference_between = `+${difference}%`;
+                        finalResult.increased = true;
+                     } else {
+                        finalResult.difference_between = `${difference}%`;
+                        finalResult.increased = false;
+                     }
+                   }
+
+                res.json(finalResult);
+            }).catch(err => {
+                console.log(err);
+            })
+
         }).catch(err => {
             console.log(err);
         })

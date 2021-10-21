@@ -26,6 +26,7 @@ router.get('/suggestion', Auth, Suggestion.getSuggestions)
 router.get('/suggestion/pending/page/:num', Suggestion.getSuggestionPage);
 router.post('/newsletter', Auth, Suggestion.sendNewsletter);
 router.get('/reports', Reports.compareValues);
+router.get('/today/yesterday/:code', Currency.getTodayAndYesterdayValues);
 
 router.post('/calculator', Calculator.Calculator);
 
