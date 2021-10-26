@@ -11,9 +11,15 @@ const CronUpdateValues =  require('../Cron/updateValues');
 const CronStorePreviousDayValues =  require('../Cron/storePreviousDayCurrencyValues.js');
 const cors = require('cors');
 
-var corsOptions = {
-    origin: 'http://localhost:7182',
-    optionsSuccessStatus: 200
+const whitelist = ['http://localhost:3001', 'http://conversordemoeda.xyz', 'https://conversordemoeda.xyz/']
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+          callback(null, true)
+        } else {
+          callback(new Error('Not allowed by CORS'))
+        }
+      }
   }
    
 
