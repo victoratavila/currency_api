@@ -12,13 +12,7 @@ const cors = require('cors');
 // }
 
 // Setting cors
-app.use(
-    cors({
-        origin: 'https://conversordemoeda.xyz',
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        credentials: true
-    })
-);
+app.use(cors());
 
 // Authenticate database connection
 connection.authenticate().then(() => {
