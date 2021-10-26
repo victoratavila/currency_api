@@ -9,9 +9,16 @@ const Auth = require('../Middleware/auth');
 const Reports = require('../Controllers/Reports');
 const CronUpdateValues =  require('../Cron/updateValues');
 const CronStorePreviousDayValues =  require('../Cron/storePreviousDayCurrencyValues.js');
+const cors = require('cors');
+
+var corsOptions = {
+    origin: ['http://localhost:3000'],
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+   
 
 router.get('/currency/include/:currencyName', Currency.getCurrencyIncluding);
-router.get('/currency/all', Currency.getAll);
+router.get('/currency/all', cors(corsOptions), Currency.getAll);
 router.get('/currency/yesterday/all',Currency.getAllFromYesterday);
 router.get('/currency/all/:order', Currency.getAllByOrder);
 router.get('/currency/:currencyName', Currency.getCurrency);
