@@ -12,9 +12,13 @@ const cors = require('cors');
 // }
 
 // Setting cors
-app.use(cors({
-    origin: ['http://localhost:3000', 'https://conversordemoeda.xyz', 'http://conversordemoeda.xyz']
-}));
+app.use(
+    cors({
+        origin: 'https://conversordemoeda.xyz',
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        credentials: true
+    })
+);
 
 // Authenticate database connection
 connection.authenticate().then(() => {
