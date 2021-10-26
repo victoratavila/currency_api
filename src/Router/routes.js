@@ -14,7 +14,7 @@ const cors = require('cors');
 const whitelist = ['http://localhost:3000', 'http://conversordemoeda.xyz', 'https://conversordemoeda.xyz']
 
 const corsOptions = {
-    origin: whitelist,
+    origin: 'https://conversordemoeda.xyz',
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: false,
     optionsSuccessStatus: 200
