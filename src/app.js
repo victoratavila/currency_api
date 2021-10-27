@@ -5,14 +5,6 @@ const routes = require('./Router/routes');
 const cors = require('cors');
 
 
-// if(process.env.PROD == undefined){
-//     var PORT = 8080
-// } else {
-//     var PORT = process.env.PORT;
-// }
-
-// Setting cors
-app.use(cors());
 
 // Authenticate database connection
 connection.authenticate().then(() => {
@@ -25,6 +17,11 @@ app.use(express.urlencoded({ extended: true }))
 
 // Setting static folder
 app.use(express.static(__dirname + '/public'));
+
+// Setting cors
+app.use(cors({
+    origin: ['http://localhost:3000' ,  'https://conversordemoeda.xyz']
+}));
 
 // Setting routes
 app.use(routes);
