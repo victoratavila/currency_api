@@ -5,6 +5,7 @@ const Suggestion = require('../Controllers/Suggestion');
 const Calculator = require('../Controllers/Calculator');
 const User = require('../Controllers/User');  
 const Login = require('../Controllers/Login');
+const Auth = require('../Middleware/auth');
 const Reports = require('../Controllers/Reports');
 const CronUpdateValues =  require('../Cron/updateValues');
 const CronStorePreviousDayValues =  require('../Cron/storePreviousDayCurrencyValues.js');
