@@ -12,7 +12,20 @@ const cors = require('cors');
 // }
 
 // Setting cors
-app.use(cors());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
+    res.header('Access-Control-Allow-Origin', 'https://conversordemoeda.xyz');
+    res.header(
+        'Access-Control-Allow-Header',
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    )
+
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).send({});
+    }
+    next();
+});
 
 // Authenticate database connection
 connection.authenticate().then(() => {
