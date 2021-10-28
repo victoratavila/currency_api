@@ -4,28 +4,12 @@ const connection = require('./database/connection');
 const routes = require('./Router/routes');
 const cors = require('cors');
 
+var corsOptions = {
+    origin: ['http://localhost:3000', 'https://conversordemoeda.xyz'],
+    optionsSuccessStatus: 200 
+  }
 
-// if(process.env.PROD == undefined){
-//     var PORT = 8080
-// } else {
-//     var PORT = process.env.PORT;
-// }
-
-// Setting cors
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-    res.header('Access-Control-Allow-Origin', 'https://conversordemoeda.xyz');
-    res.header(
-        'Access-Control-Allow-Header',
-        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    )
-
-    if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-        return res.status(200).send({});
-    }
-    next();
-});
+app.use(cors(corsOptions));
 
 // Authenticate database connection
 connection.authenticate().then(() => {
