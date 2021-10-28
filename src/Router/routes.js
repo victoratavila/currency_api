@@ -9,7 +9,7 @@ const Auth = require('../Middleware/auth');
 const Reports = require('../Controllers/Reports');
 const CronUpdateValues =  require('../Cron/updateValues');
 const CronStorePreviousDayValues =  require('../Cron/storePreviousDayCurrencyValues.js');
-// const cors = require('cors');
+const cors = require('cors');
 
 // const whitelist = ['http://localhost:3000', 'http://conversordemoeda.xyz', 'https://conversordemoeda.xyz']
 
@@ -22,7 +22,7 @@ const CronStorePreviousDayValues =  require('../Cron/storePreviousDayCurrencyVal
    
 
 router.get('/currency/include/:currencyName', Currency.getCurrencyIncluding);
-router.get('/currency/all', Currency.getAll);
+router.get('/currency/all', cors({ origin: "https://conversordemoeda.xyz" }), Currency.getAll);
 router.get('/currency/yesterday/all',Currency.getAllFromYesterday);
 router.get('/currency/all/:order', Currency.getAllByOrder);
 router.get('/currency/:currencyName', Currency.getCurrency);
