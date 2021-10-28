@@ -19,10 +19,15 @@ const cors = require('cors');
 //     preflightContinue: false,
 //     optionsSuccessStatus: 200
 //   }
+
+const authenticate = (req, res, next) => {
+    console.log(req.get('host'));
+    next();
+}
    
 
 router.get('/currency/include/:currencyName', Currency.getCurrencyIncluding);
-router.get('/currency/all', cors({ origin: "https://conversordemoeda.xyz" }), Currency.getAll);
+router.get('/currency/all', authenticate, Currency.getAll);
 router.get('/currency/yesterday/all',Currency.getAllFromYesterday);
 router.get('/currency/all/:order', Currency.getAllByOrder);
 router.get('/currency/:currencyName', Currency.getCurrency);
