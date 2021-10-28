@@ -20,22 +20,22 @@ const cors = require('cors');
 //     optionsSuccessStatus: 200
 //   }
 
-const authenticate = (req, res, next) => {
+// const authenticate = (req, res, next) => {
 
-    const origin = req.get('origin');
-    console.log(origin);
-    if(origin === 'http://localhost:3000' || origin === 'https://conversordemoeda.xyz' || origin === undefined){
-        next();
-    } else {
-        res.status(403).json({error: 'Access denied'});
-    }
+//     const origin = req.get('origin');
+//     console.log(origin);
+//     if(origin === 'http://localhost:3000' || origin === 'https://conversordemoeda.xyz' || origin === undefined){
+//         next();
+//     } else {
+//         res.status(403).json({error: 'Access denied'});
+//     }
     
   
-}
+// }
    
 
 router.get('/currency/include/:currencyName', Currency.getCurrencyIncluding);
-router.get('/currency/all', authenticate, Currency.getAll);
+router.get('/currency/all', Currency.getAll);
 router.get('/currency/yesterday/all',Currency.getAllFromYesterday);
 router.get('/currency/all/:order', Currency.getAllByOrder);
 router.get('/currency/:currencyName', Currency.getCurrency);
