@@ -21,8 +21,16 @@ const cors = require('cors');
 //   }
 
 const authenticate = (req, res, next) => {
-    console.log(req.get('origin'));
-    next();
+
+    const origin = req.get('origin');
+    console.log(origin);
+    if(origin === 'http://localhost:3000' || origin === 'https://conversordemoeda.xyz' || origin === undefined){
+        next();
+    } else {
+        res.status(403).json({error: 'Access denied'});
+    }
+    
+  
 }
    
 
