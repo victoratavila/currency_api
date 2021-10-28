@@ -21,7 +21,7 @@ const cors = require('cors');
 //   }
 
 const authenticate = (req, res, next) => {
-    console.log(req.get('host'));
+    console.log(req.get('origin'));
     next();
 }
    
