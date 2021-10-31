@@ -48,7 +48,9 @@ router.get('/status', Currency.status);
 router.post('/suggestion', Suggestion.sendSuggestion);
 router.get('/suggestion', Auth, Suggestion.getSuggestions)
 router.get('/suggestion/pending/page/:num', Suggestion.getSuggestionPage);
-router.post('/newsletter', Auth, Suggestion.sendNewsletter);
+router.post('/newsletter/send', Suggestion.sendNewsletter);
+router.post('/newsletter/sign', Suggestion.signNewsletter);
+router.delete('/newsletter/cancel/:email', Suggestion.cancelNewsletterSubscription);
 router.get('/reports', Reports.compareValues);
 router.get('/today/yesterday/:code', Currency.getTodayAndYesterdayValues);
 

@@ -4,7 +4,7 @@ const { secret } = process.env;
 
 const authAdmin = (req, res, next) => {
     const token = req.headers.token;
-    
+
     if(token != undefined && token != "" && token != null){
         jwt.verify(token, secret, (err, data) => {
             if(err){

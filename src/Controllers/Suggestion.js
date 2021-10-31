@@ -4,6 +4,7 @@ const suggestion = require('../Models/suggestion');
 const validator = require("email-validator");
 const Suggestion = require('../Models/suggestion');
 const newsletterToken = process.env.NEWSLETTER_TOKEN;
+const Newsletter_user = require('../Models/newsletterUsers');
 
 // const redis = require('redis');
 // const REDIS_URL = process.env.REDIS_URL || 6379;
@@ -70,10 +71,35 @@ module.exports = {
 
         
     },
+
+    async signNewsletter(req, res){
+
+        const { name, email, assigned_newsletter } = req.body;
+
+        Newsletter_user.findOne({where: {email: email}}).then((data) => {
+            if(data){
+                res.status(403).json({error: `There is already an user related to the e-mail ${email}`});
+            } else {
+                Newsletter_user.create({
+                    name: name,
+                    email: email,
+                    assigned_newsletter: assigned_newsletter
+                }).then(() => {
+                    res.status(200).json({result: 'User sucessfully added to newsletter list'});
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+
+      
+    },
     
     async sendSuggestion(req, res){
 
-        const { email, username, suggestionSent } = req.body;
+        const { email, username, suggestionSent, assigned_newsletter } = req.body;
         const emailValidator = validator.validate(email); 
         
         if(username == undefined || username == "" || suggestionSent == undefined || suggestionSent == ""){
@@ -90,6 +116,7 @@ module.exports = {
                     status: "pending"
                 }).then((response) => {
                         try {
+
                             sendMail(
                                 // Sender name
                                 'Conversor de moeda', 
@@ -102,8 +129,32 @@ module.exports = {
                                   // Content
                                 `Olá, ${username}! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
                             )
+
+                            Newsletter_user.findOne({where: {email: email}}).then((data) => {
+                                if(data){
+                                    res.status(200).json({result: 'Sugestão enviada com sucesso! Você receberá uma confirmação no e-mail ' + email, assigned_newsletter: true})
+                                } else {
+
+                                    if(assigned_newsletter === true){
+                                        Newsletter_user.create({
+                                            name: username,
+                                            email: email,
+                                            assigned_newsletter: true
+                                        }).then(() => {
+                                            res.status(200).json({result: 'Sugestão enviada com sucesso! Você receberá uma confirmação no e-mail ' + email, assigned_newsletter: true});
+                                        }).catch(err => {
+                                            console.log(err);
+                                        })
+                                    } else {
+                                        res.status(200).json({result: 'Sugestão enviada com sucesso! Você receberá uma confirmação no e-mail ' + email, assigned_newsletter: false});
+                                    }
+        
+                                }
+                            }).catch(err => {
+                                console.log(err);
+                            })
                     
-                            res.status(200).json({result: 'Sugestão enviada com sucesso! Você receberá uma confirmação no e-mail ' + email})
+                            
                         } catch (err) {
                             console.log(err);
                         }
@@ -118,12 +169,13 @@ module.exports = {
 },
 
         async sendNewsletter(req, res){
+
             const token = req.body.token;
 
-            if(token != newsletterToken){
+            if(token != 'egLn7V4y^!$2qKX~8wMwV{?C6$'){
                 res.status(403).json({error: 'invalid token provided'});
             } else {
-                await suggestion.findAll({attributes: ['email']}).then(response => {
+                await Newsletter_user.findAll({attributes: ['email']}).then(response => {
                     let recipients = [];
      
                     // Create a single array with all the recipients
@@ -135,6 +187,7 @@ module.exports = {
                         }
                     });
                     
+                    console.log(recipients)
      
                     try {
                      sendMail(
@@ -159,6 +212,43 @@ module.exports = {
 
             }
         
+        },
+
+        async cancelNewsletterSubscription(req, res){
+            const { email } = req.params;
+
+            if(email == undefined || email == null || email == ""){
+                res.json(404).json({error: 'Please inform an e-mail to cancel newsletter subscription'});
+            } else {
+
+                Newsletter_user.findOne({
+                    raw: true,
+                    where: {
+                        email: email
+                    }
+                }).then((data) => {
+
+                    if(data != undefined && data != null){
+
+                        Newsletter_user.destroy({
+                            where: {
+                                email: email
+                            }
+                        }).then(() => {
+                            res.status(200).json({result: `Newsletter subscription cancelled for the e-mail ${email}, the user will no longer receive newsletter messages`})
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                      
+                    } else {
+                        res.status(404).json({error: `Newsletter subscription not found related to the e-mail ${email}`});
+                    }
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+    
+
         },
 
         async approveOrReject(req, res){
