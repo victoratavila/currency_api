@@ -139,7 +139,7 @@ module.exports = {
                                         Newsletter_user.create({
                                             name: username,
                                             email: email,
-                                            assigned_newsletter: true
+                                            assigned_newsletter: assigned_newsletter || false
                                         }).then(() => {
                                             res.status(200).json({result: 'Sugestão enviada com sucesso! Você receberá uma confirmação no e-mail ' + email, assigned_newsletter: true});
                                         }).catch(err => {
