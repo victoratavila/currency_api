@@ -81,7 +81,7 @@ module.exports = {
         } else {
 
             if(emailValidator == false){
-                res.status(400).json({error: 'Por favor informe um e-mail válido!'});
+                res.status(400).json({error: 'Por favor informe um endereço de e-mail válido!'});
             } else {
                 await suggestion.create({
                     email: email,
