@@ -49,7 +49,7 @@ router.post('/suggestion', Suggestion.sendSuggestion);
 router.get('/suggestion', Auth, Suggestion.getSuggestions)
 router.get('/suggestion/pending/page/:num', Suggestion.getSuggestionPage);
 router.get('/newsletter/all', Auth, Suggestion.listNewsletterUsers);
-router.post('/newsletter/send', Suggestion.sendNewsletter);
+router.post('/newsletter/send', Auth, Suggestion.sendNewsletter);
 router.post('/newsletter/sign', Suggestion.signNewsletter);
 router.delete('/newsletter/cancel/:email', Suggestion.cancelNewsletterSubscription);
 router.get('/reports', Reports.compareValues);

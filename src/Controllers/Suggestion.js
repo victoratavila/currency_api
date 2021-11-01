@@ -1,5 +1,6 @@
 const express = require('express');
 const sendMail = require('../Mail/sender');
+const sendNewsletter = require('../Mail/newsletter');
 const suggestion = require('../Models/suggestion');
 const validator = require("email-validator");
 const Suggestion = require('../Models/suggestion');
@@ -170,11 +171,8 @@ module.exports = {
 
         async sendNewsletter(req, res){
 
-            const token = req.body.token;
+            const { token, newsletterText, subject} = req.body;
 
-            if(token != 'egLn7V4y^!$2qKX~8wMwV{?C6$'){
-                res.status(403).json({error: 'invalid token provided'});
-            } else {
                 await Newsletter_user.findAll({attributes: ['email']}).then(response => {
                     let recipients = [];
      
@@ -186,11 +184,9 @@ module.exports = {
                              recipients.push(checkedEmail);
                         }
                     });
-                    
-                    console.log(recipients)
      
                     try {
-                     sendMail(
+                        sendNewsletter(
                          // Sender name
                          'Conversor de moeda', 
                          // Sender email
@@ -198,19 +194,19 @@ module.exports = {
                          // Recipient
                          recipients, 
                          // Subject
-                         `Sua sugestão foi recebida com sucesso! 💚`, 
+                         subject, 
                            // Content
-                         `Olá! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`
+                         `Olá! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`,
+                         // NewsletterText
+                         newsletterText
                      )
              
-                     res.status(200).json({result: `Newsletter successfully sent to the newsletter list with ${recipients.length} recipients`});
+                   res.status(200).json({result: `Newsletter successfully sent to the newsletter list with ${recipients.length} recipients`});
                  } catch (err) {
                      console.log(err);
                  }
      
                  })
-
-            }
         
         },
 
