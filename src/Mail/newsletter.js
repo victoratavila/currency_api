@@ -23,7 +23,7 @@ function sendNewsletter(from, sender, recipient, subject, content, newsletterTex
             <meta charset="utf-8"> <!-- utf-8 works for most cases -->
             <meta name="viewport" content="width=device-width"> <!-- Forcing initial-scale shouldn't be necessary -->
             <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest (edge) version of IE rendering engine -->
-            <title></title> <!-- The title tag shows in email notifications, like Android 4.4. -->
+            <title> ${subject} </title> <!-- The title tag shows in email notifications, like Android 4.4. -->
  
             <!-- Web Font / @font-face : BEGIN -->
             <!-- NOTE: If web fonts are not required, lines 9 - 26 can be safely removed. -->
@@ -172,9 +172,7 @@ function sendNewsletter(from, sender, recipient, subject, content, newsletterTex
             <center style="width: 100%; background: white;">
         
                 <!-- Visually Hidden Preheader Text : BEGIN -->
-                <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
-                    (Optional) This text will appear in the inbox preview, but not the email body.
-                </div>
+       
                 <!-- Visually Hidden Preheader Text : END -->
         
                 <!-- Email Header : BEGIN -->

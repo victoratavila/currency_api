@@ -182,29 +182,30 @@ module.exports = {
                         if(recipients.includes(checkedEmail)){
                         } else {
                              recipients.push(checkedEmail);
+                             try {
+                                sendNewsletter(
+                                 // Sender name
+                                 'Conversor de moeda', 
+                                 // Sender email
+                                 'contato@conversordemoeda.xyz', 
+                                 // Recipient
+                                 checkedEmail, 
+                                 // Subject
+                                 subject, 
+                                   // Content
+                                 `Olá! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`,
+                                 // NewsletterText
+                                 newsletterText
+                             )
+                    
+                         } catch (err) {
+                             console.log(err);
+                         }
                         }
+
                     });
      
-                    try {
-                        sendNewsletter(
-                         // Sender name
-                         'Conversor de moeda', 
-                         // Sender email
-                         'contato@conversordemoeda.xyz', 
-                         // Recipient
-                         recipients, 
-                         // Subject
-                         subject, 
-                           // Content
-                         `Olá! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`,
-                         // NewsletterText
-                         newsletterText
-                     )
-             
-                   res.status(200).json({result: `Newsletter successfully sent to the newsletter list with ${recipients.length} recipients`});
-                 } catch (err) {
-                     console.log(err);
-                 }
+                    res.status(200).json({result: `Newsletter successfully sent to the newsletter list`});
      
                  })
         
