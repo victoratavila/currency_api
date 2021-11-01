@@ -48,6 +48,7 @@ router.get('/status', Currency.status);
 router.post('/suggestion', Suggestion.sendSuggestion);
 router.get('/suggestion', Auth, Suggestion.getSuggestions)
 router.get('/suggestion/pending/page/:num', Suggestion.getSuggestionPage);
+router.get('/newsletter/all', Suggestion.listNewsletterUsers);
 router.post('/newsletter/send', Suggestion.sendNewsletter);
 router.post('/newsletter/sign', Suggestion.signNewsletter);
 router.delete('/newsletter/cancel/:email', Suggestion.cancelNewsletterSubscription);

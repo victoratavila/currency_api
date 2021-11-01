@@ -132,7 +132,7 @@ module.exports = {
 
                             Newsletter_user.findOne({where: {email: email}}).then((data) => {
                                 if(data){
-                                    res.status(200).json({result: 'Sugestão enviada com sucesso! Você receberá uma confirmação no e-mail ' + email, assigned_newsletter: true})
+                                    res.status(200).json({result: 'Sugestão enviada com sucesso! Você receberá uma confirmação no e-mail ' + email + ', e-mail já está na lista de newsletter'});
                                 } else {
 
                                     if(assigned_newsletter === true){
@@ -249,6 +249,14 @@ module.exports = {
             }
     
 
+        },
+
+        async listNewsletterUsers(req, res){
+            Newsletter_user.findAll().then(data => {
+                res.json(data);
+            }).catch(err => {
+                console.log(err);
+            })
         },
 
         async approveOrReject(req, res){
