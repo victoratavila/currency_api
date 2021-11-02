@@ -7,6 +7,7 @@ const User = require('../Controllers/User');
 const Login = require('../Controllers/Login');
 const Auth = require('../Middleware/auth');
 const Reports = require('../Controllers/Reports');
+const Sheet = require('../Controllers/Sheet/Sheet');
 const CronUpdateValues =  require('../Cron/updateValues');
 const CronStorePreviousDayValues =  require('../Cron/storePreviousDayCurrencyValues.js');
 const cors = require('cors');
@@ -53,6 +54,7 @@ router.post('/newsletter/send', Auth, Suggestion.sendNewsletter);
 router.post('/newsletter/sign', Suggestion.signNewsletter);
 router.delete('/newsletter/cancel/:email', Suggestion.cancelNewsletterSubscription);
 router.get('/reports', Reports.compareValues);
+router.post('/reports/generate', Sheet.generateSheet);
 router.get('/today/yesterday/:code', Currency.getTodayAndYesterdayValues);
 
 router.post('/calculator', Calculator.Calculator);
