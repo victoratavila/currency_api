@@ -54,7 +54,7 @@ router.post('/newsletter/send', Auth, Suggestion.sendNewsletter);
 router.post('/newsletter/sign', Suggestion.signNewsletter);
 router.delete('/newsletter/cancel/:email', Suggestion.cancelNewsletterSubscription);
 router.get('/reports', Reports.compareValues);
-router.post('/reports/generate', Sheet.generateSheet);
+router.get('/reports/generate', Sheet.generateSheet);
 router.get('/today/yesterday/:code', Currency.getTodayAndYesterdayValues);
 
 router.post('/calculator', Calculator.Calculator);
