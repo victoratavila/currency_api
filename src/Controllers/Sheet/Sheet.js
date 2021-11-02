@@ -10,7 +10,10 @@ module.exports = {
     async generateSheet(req, res){
 
         await currency.findAll({
-            raw: true
+            raw: true,
+            order: [
+                ['currency', 'ASC'],
+            ]
         }).then(async currency => {
 
             await XlsxPopulate.fromFileAsync(path.join(__dirname, 'sheet-template.xlsx'))
