@@ -41,6 +41,7 @@ module.exports = {
                 date: '',
                 currency: '',
                 code: '',
+                symbol: '',
                 value: ''
             },
 
@@ -48,6 +49,7 @@ module.exports = {
                 date: '',
                 currency: '',
                 code: '',
+                symbol: '',
                 value: ''
             },
 
@@ -62,6 +64,7 @@ module.exports = {
             finalResult.today.date = result.lastUpdate;
             finalResult.today.currency = result.currency;
             finalResult.today.code = result.code;
+            finalResult.today.symbol = result.symbol;
             finalResult.today.value = result.value;
         
             
@@ -74,6 +77,7 @@ module.exports = {
                 finalResult.yesterday.currency = yesterdayResult.currency;
                 finalResult.yesterday.date = yesterdayResult.lastUpdate;
                 finalResult.yesterday.code = yesterdayResult.code;
+                finalResult.yesterday.symbol = yesterdayResult.symbol;
                 finalResult.yesterday.value = yesterdayResult.value;
 
                 let difference = percentage.differenceBetween(yesterdayResult.value, result.value).toFixed(2);
