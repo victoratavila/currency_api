@@ -64,7 +64,7 @@ module.exports = {
         if(process.env.PROD != undefined){
             baseURL = 'https://currencycoverter-api.herokuapp.com'
         } else {
-            baseURL = 'http://localhost:8080/today/yesterday';
+            baseURL = 'http://localhost:8080';
         }
 
         if(code != undefined && code !== null && code !== ""){
