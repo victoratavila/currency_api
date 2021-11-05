@@ -68,7 +68,7 @@ module.exports = {
         }
 
         if(code != undefined && code !== null && code !== ""){
-           axios.get(`${baseURL}/${code}`, {
+           axios.get(`${baseURL}/generate/yesterday-and-today/${code}`, {
                raw: true
            }).then( async data => {
 
