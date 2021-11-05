@@ -59,9 +59,16 @@ module.exports = {
 
     async generateYesterdaySheet(req, res){
         const { code } = req.params;
+        
+        let baseURL;
+        if(process.env.PROD != undefined){
+            baseURL = 'https://currencycoverter-api.herokuapp.com'
+        } else {
+            baseURL = 'http://localhost:8080/today/yesterday';
+        }
 
         if(code != undefined && code !== null && code !== ""){
-           axios.get(`http://localhost:8080/today/yesterday/${code}`, {
+           axios.get(`${baseURL}/${code}`, {
                raw: true
            }).then( async data => {
 
@@ -78,6 +85,18 @@ module.exports = {
                 const currency = data.data.today.currency;
                 const code = data.data.today.code;
                 const symbol = data.data.today.symbol;
+                const difference = data.data.difference_between;
+                const increased = data.data.increased;
+
+                if(increased == false){
+                    workbook.sheet("Cotações").cell('F2').value(`Diminuiu ${difference.replace('-', '')}`);
+                } else if(increased === true){
+                    workbook.sheet("Cotações").cell('F2').value(`Aumentou ${difference.replace('+', '')}`);
+                } else {
+                    workbook.sheet("Cotações").cell('F2').value('Nenhuma mudança');
+                }
+
+              
 
                 workbook.sheet("Cotações").cell('A2').value(currency);
                 workbook.sheet("Cotações").cell('B2').value(code);
@@ -91,8 +110,8 @@ module.exports = {
 
                 workbook.sheet("Cotações").cell('F5').value(report_generation_hour);
 
-                workbook.toFileAsync(path.join(__dirname, '/outputs/report-yesterday-today-template.xlsx')).then(() => {
-                    res.download(path.join(__dirname, '/outputs/report-yesterday-today-template.xlsx'), 'relatorio.xlsx');  
+                workbook.toFileAsync(path.join(__dirname, '/outputs/report-yesterday-today.xlsx')).then(() => {
+                    res.download(path.join(__dirname, '/outputs/report-yesterday-today.xlsx'), 'relatorio.xlsx');  
                 }).catch(err => {
                     console.log(err);
                 });
