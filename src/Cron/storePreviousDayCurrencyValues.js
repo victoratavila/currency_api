@@ -15,12 +15,13 @@ const urlDirham = 'https://www.melhorcambio.com/dirham-hoje';
 const urlFracoSuico = 'https://www.melhorcambio.com/franco-suico-hoje';
 const urlRenminbi = 'https://www.melhorcambio.com/iuan-hoje';
 const moment = require('moment');
+const cronUrls = require('../Models/cron_urls');
 
 // Cron job responsible for storing the currency values of the day at 23:59
 
 // Run every minute when developing and every 23:50 in production
 if(process.env.PROD == undefined){
-    var periodToRun = '50 23 * * *';
+    var periodToRun = '* * * * *';
     var URL = 'http://localhost:8080/currency/store/previousday';
 } else {
     var periodToRun = '50 23 * * *';
@@ -34,240 +35,268 @@ const getData = async (url) => {
 }
 
 
-// Update dolar 
-cron.schedule(periodToRun, async () => {
-    const data = await getData(urlDolar);
-        const $ = cheerio.load(data);
-        var dollar = $('#comercial').val();
-        var dollar = dollar.replace(",",".");
+// // Update dolar 
+// cron.schedule(periodToRun, async () => {
+//     const data = await getData(urlDolar);
+//         const $ = cheerio.load(data);
+//         var dollar = $('#comercial').val();
+//         var dollar = dollar.replace(",",".");
 
-        await axios.put(URL, { 
-            slug: 'dolar',
-            value: dollar,
-            lastUpdate: moment().locale('pt-br').format('L')
-        }).then(() => {
-            console.log('Dólar - ' + 'R$ ' + dollar);
-        }).catch(err => {
-            console.log(err);
+//         await axios.put(URL, { 
+//             slug: 'dolar',
+//             value: dollar,
+//             lastUpdate: moment().locale('pt-br').format('L')
+//         }).then(() => {
+//             console.log('Dólar - ' + 'R$ ' + dollar);
+//         }).catch(err => {
+//             console.log(err);
+//         });
+// });
+
+    // Update currencies 
+    cron.schedule(periodToRun, async () => {
+
+        cronUrls.findAll({
+            raw: true
+        }).then(data => {
+            data.map(async currency => {
+        
+                const data = await getData(currency.cron_url);
+                const $ = cheerio.load(data);
+                var currentCurrencyValue = $('#comercial').val();
+                var currentCurrencyValue = currentCurrencyValue.replace(",",".");
+    
+                await axios.put(URL, { 
+                    slug: currency.slug,
+                    value: currentCurrencyValue,
+                    lastUpdate: moment().locale('pt-br').format('L')
+                }).then(() => {
+                    console.log( `${currency.slug } = R$ ${currentCurrencyValue}` );
+                }).catch(err => {
+                    console.log(err);
+                });
+            })
+        
         });
+
 });
 
-// Update euro 
-cron.schedule(periodToRun, async () => {
-    const data = await getData(urlEuro);
-    const $ = cheerio.load(data);
-    var euro = $('#comercial').val();
-    var euro = euro.replace(",",".");
+// // Update euro 
+// cron.schedule(periodToRun, async () => {
+//     const data = await getData(urlEuro);
+//     const $ = cheerio.load(data);
+//     var euro = $('#comercial').val();
+//     var euro = euro.replace(",",".");
 
-        await axios.put(URL, { 
-            slug: 'euro',
-            value: euro,
-            lastUpdate: moment().locale('pt-br').format('L')
-        }).then(() => {
-            console.log('Euro -' + 'R$ ' + euro);
-        }).catch(err => {
-            console.log(err);
-        });
-});
+//         await axios.put(URL, { 
+//             slug: 'euro',
+//             value: euro,
+//             lastUpdate: moment().locale('pt-br').format('L')
+//         }).then(() => {
+//             console.log('Euro -' + 'R$ ' + euro);
+//         }).catch(err => {
+//             console.log(err);
+//         });
+// });
 
-// Update pound 
-cron.schedule(periodToRun, async () => {
-    const data = await getData(urlLibra);
-    const $ = cheerio.load(data);
-    var libra = $('#comercial').val();
-    var libra = libra.replace(",",".");
+// // Update pound 
+// cron.schedule(periodToRun, async () => {
+//     const data = await getData(urlLibra);
+//     const $ = cheerio.load(data);
+//     var libra = $('#comercial').val();
+//     var libra = libra.replace(",",".");
 
-        await axios.put(URL, { 
-            slug: 'libra',
-            value: libra,
-            lastUpdate: moment().locale('pt-br').format('L')
-        }).then(() => {
-            console.log('Libra - ' + 'R$ ' + libra);
-        }).catch(err => {
-            console.log(err);
-        });
-});
+//         await axios.put(URL, { 
+//             slug: 'libra',
+//             value: libra,
+//             lastUpdate: moment().locale('pt-br').format('L')
+//         }).then(() => {
+//             console.log('Libra - ' + 'R$ ' + libra);
+//         }).catch(err => {
+//             console.log(err);
+//         });
+// });
 
 
-// Update canadian dolar 
-cron.schedule(periodToRun, async () => {
-    const data = await getData(urlDolarCanadense);
-    const $ = cheerio.load(data);
-    var dolarCanadense = $('#comercial').val();
-    var dolarCanadense = dolarCanadense.replace(",",".");
+// // Update canadian dolar 
+// cron.schedule(periodToRun, async () => {
+//     const data = await getData(urlDolarCanadense);
+//     const $ = cheerio.load(data);
+//     var dolarCanadense = $('#comercial').val();
+//     var dolarCanadense = dolarCanadense.replace(",",".");
 
-        await axios.put(URL, { 
-            slug: 'dolar-canadense',
-            value: dolarCanadense,
-            lastUpdate: moment().locale('pt-br').format('L')
-        }).then(() => {
-            console.log('Dólar Canadense - ' + 'R$ ' + dolarCanadense);
-        }).catch(err => {
-            console.log(err);
-        });
-});
+//         await axios.put(URL, { 
+//             slug: 'dolar-canadense',
+//             value: dolarCanadense,
+//             lastUpdate: moment().locale('pt-br').format('L')
+//         }).then(() => {
+//             console.log('Dólar Canadense - ' + 'R$ ' + dolarCanadense);
+//         }).catch(err => {
+//             console.log(err);
+//         });
+// });
 
-// Update Yen 
-cron.schedule(periodToRun, async () => {
-    const data = await getData(urlIene);
-    const $ = cheerio.load(data);
-    var iene = $('#comercial').val();
-    var iene = iene.replace(",",".");
+// // Update Yen 
+// cron.schedule(periodToRun, async () => {
+//     const data = await getData(urlIene);
+//     const $ = cheerio.load(data);
+//     var iene = $('#comercial').val();
+//     var iene = iene.replace(",",".");
 
-        await axios.put(URL, { 
-            slug: 'iene',
-            value: iene,
-            lastUpdate: moment().locale('pt-br').format('L')
-        }).then(() => {
-            console.log('Iene - ' + 'R$ ' + iene);
-        }).catch(err => {
-            console.log(err);
-        });
-});
+//         await axios.put(URL, { 
+//             slug: 'iene',
+//             value: iene,
+//             lastUpdate: moment().locale('pt-br').format('L')
+//         }).then(() => {
+//             console.log('Iene - ' + 'R$ ' + iene);
+//         }).catch(err => {
+//             console.log(err);
+//         });
+// });
 
-// Update Australian dollar 
-cron.schedule(periodToRun, async () => {
-    const data = await getData(urlDolarAustraliano);
-    const $ = cheerio.load(data);
-    var dollarAustraliano = $('#comercial').val();
-    var dollarAustraliano = dollarAustraliano.replace(",",".");
+// // Update Australian dollar 
+// cron.schedule(periodToRun, async () => {
+//     const data = await getData(urlDolarAustraliano);
+//     const $ = cheerio.load(data);
+//     var dollarAustraliano = $('#comercial').val();
+//     var dollarAustraliano = dollarAustraliano.replace(",",".");
 
-        await axios.put(URL, { 
-            slug: 'dolar-australiano',
-            value: dollarAustraliano,
-            lastUpdate: moment().locale('pt-br').format('L')
-        }).then(() => {
-            console.log('Dólar Australiano  - ' + 'R$ ' + dollarAustraliano);
-        }).catch(err => {
-            console.log(err);
-        });
-});
+//         await axios.put(URL, { 
+//             slug: 'dolar-australiano',
+//             value: dollarAustraliano,
+//             lastUpdate: moment().locale('pt-br').format('L')
+//         }).then(() => {
+//             console.log('Dólar Australiano  - ' + 'R$ ' + dollarAustraliano);
+//         }).catch(err => {
+//             console.log(err);
+//         });
+// });
 
-// Update Mexican peso 
-cron.schedule(periodToRun, async () => {
-    const data = await getData(urlPesoMexicano);
-    const $ = cheerio.load(data);
-    var pesoMexicano = $('#comercial').val();
-    var pesoMexicano = pesoMexicano.replace(",",".");
+// // Update Mexican peso 
+// cron.schedule(periodToRun, async () => {
+//     const data = await getData(urlPesoMexicano);
+//     const $ = cheerio.load(data);
+//     var pesoMexicano = $('#comercial').val();
+//     var pesoMexicano = pesoMexicano.replace(",",".");
 
-        await axios.put(URL, { 
-            slug: 'peso-mexicano',
-            value: pesoMexicano,
-            lastUpdate: moment().locale('pt-br').format('L')
-        }).then(() => {
-            console.log('Peso Mexicano - ' + 'R$ ' + pesoMexicano);
-        }).catch(err => {
-            console.log(err);
-        });
-});
+//         await axios.put(URL, { 
+//             slug: 'peso-mexicano',
+//             value: pesoMexicano,
+//             lastUpdate: moment().locale('pt-br').format('L')
+//         }).then(() => {
+//             console.log('Peso Mexicano - ' + 'R$ ' + pesoMexicano);
+//         }).catch(err => {
+//             console.log(err);
+//         });
+// });
 
-// Update Argentine peso 
-cron.schedule(periodToRun, async () => {
-    const data = await getData(urlPesoArgentino);
-    const $ = cheerio.load(data);
-    var pesoArgentino = $('#comercial').val();
-    var pesoArgentino = pesoArgentino.replace(",",".");
+// // Update Argentine peso 
+// cron.schedule(periodToRun, async () => {
+//     const data = await getData(urlPesoArgentino);
+//     const $ = cheerio.load(data);
+//     var pesoArgentino = $('#comercial').val();
+//     var pesoArgentino = pesoArgentino.replace(",",".");
 
-        await axios.put(URL, { 
-            slug: 'peso-argentino',
-            value: pesoArgentino,
-            lastUpdate: moment().locale('pt-br').format('L')
-        }).then(() => {
-            console.log('Peso Argentino - ' + 'R$ ' + pesoArgentino);
-        }).catch(err => {
-            console.log(err);
-        });
-});
+//         await axios.put(URL, { 
+//             slug: 'peso-argentino',
+//             value: pesoArgentino,
+//             lastUpdate: moment().locale('pt-br').format('L')
+//         }).then(() => {
+//             console.log('Peso Argentino - ' + 'R$ ' + pesoArgentino);
+//         }).catch(err => {
+//             console.log(err);
+//         });
+// });
 
-// Update Colombian peso 
-cron.schedule(periodToRun, async () => {
-    const data = await getData(urlPesoColombiano);
-    const $ = cheerio.load(data);
-    var pesoColombiano = $('#comercial').val();
-    var pesoColombiano = pesoColombiano.replace(",",".");
+// // Update Colombian peso 
+// cron.schedule(periodToRun, async () => {
+//     const data = await getData(urlPesoColombiano);
+//     const $ = cheerio.load(data);
+//     var pesoColombiano = $('#comercial').val();
+//     var pesoColombiano = pesoColombiano.replace(",",".");
 
-        await axios.put(URL, { 
-            slug: 'peso-colombiano',
-            value: pesoColombiano,
-            lastUpdate: moment().locale('pt-br').format('L')
-        }).then(() => {
-            console.log('Peso Colombiano - ' + 'R$ ' + pesoColombiano);
-        }).catch(err => {
-            console.log(err);
-        });
-});
+//         await axios.put(URL, { 
+//             slug: 'peso-colombiano',
+//             value: pesoColombiano,
+//             lastUpdate: moment().locale('pt-br').format('L')
+//         }).then(() => {
+//             console.log('Peso Colombiano - ' + 'R$ ' + pesoColombiano);
+//         }).catch(err => {
+//             console.log(err);
+//         });
+// });
 
-// Update Colombian peso 
-cron.schedule(periodToRun, async () => {
-    const data = await getData(urlPesoChileno);
-    const $ = cheerio.load(data);
-    var pesoChileno = $('#comercial').val();
-    var pesoChileno = pesoChileno.replace(",",".");
+// // Update Colombian peso 
+// cron.schedule(periodToRun, async () => {
+//     const data = await getData(urlPesoChileno);
+//     const $ = cheerio.load(data);
+//     var pesoChileno = $('#comercial').val();
+//     var pesoChileno = pesoChileno.replace(",",".");
 
-        await axios.put(URL, { 
-            slug: 'peso-chileno',
-            value: pesoChileno,
-            lastUpdate: moment().locale('pt-br').format('L')
-        }).then(() => {
-            console.log('Peso Chileno - ' + 'R$ ' + pesoChileno);
-        }).catch(err => {
-            console.log(err);
-        });
-});
+//         await axios.put(URL, { 
+//             slug: 'peso-chileno',
+//             value: pesoChileno,
+//             lastUpdate: moment().locale('pt-br').format('L')
+//         }).then(() => {
+//             console.log('Peso Chileno - ' + 'R$ ' + pesoChileno);
+//         }).catch(err => {
+//             console.log(err);
+//         });
+// });
 
-// Update Dirham
-cron.schedule(periodToRun, async () => {
-    const data = await getData(urlDirham);
-    const $ = cheerio.load(data);
-    var dirham = $('#comercial').val();
-    var dirham = dirham.replace(",",".");
+// // Update Dirham
+// cron.schedule(periodToRun, async () => {
+//     const data = await getData(urlDirham);
+//     const $ = cheerio.load(data);
+//     var dirham = $('#comercial').val();
+//     var dirham = dirham.replace(",",".");
 
-        await axios.put(URL, { 
-            slug: 'dirham',
-            value: dirham,
-            lastUpdate: moment().locale('pt-br').format('L')
-        }).then(() => {
-            console.log('Dirham - ' + 'R$ ' + dirham);
-        }).catch(err => {
-            console.log(err);
-        });
-});
+//         await axios.put(URL, { 
+//             slug: 'dirham',
+//             value: dirham,
+//             lastUpdate: moment().locale('pt-br').format('L')
+//         }).then(() => {
+//             console.log('Dirham - ' + 'R$ ' + dirham);
+//         }).catch(err => {
+//             console.log(err);
+//         });
+// });
 
-// Update Swiss Franc
-cron.schedule(periodToRun, async () => {
-    const data = await getData(urlFracoSuico);
-    const $ = cheerio.load(data);
-    var francoSuico = $('#comercial').val();
-    var francoSuico = francoSuico.replace(",",".");
+// // Update Swiss Franc
+// cron.schedule(periodToRun, async () => {
+//     const data = await getData(urlFracoSuico);
+//     const $ = cheerio.load(data);
+//     var francoSuico = $('#comercial').val();
+//     var francoSuico = francoSuico.replace(",",".");
 
-        await axios.put(URL, { 
-            slug: 'franco-suico',
-            value: francoSuico,
-            lastUpdate: moment().locale('pt-br').format('L')
-        }).then(() => {
-            console.log('Franco suíço - ' + 'R$ ' + francoSuico);
-        }).catch(err => {
-            console.log(err);
-        });
-});
+//         await axios.put(URL, { 
+//             slug: 'franco-suico',
+//             value: francoSuico,
+//             lastUpdate: moment().locale('pt-br').format('L')
+//         }).then(() => {
+//             console.log('Franco suíço - ' + 'R$ ' + francoSuico);
+//         }).catch(err => {
+//             console.log(err);
+//         });
+// });
 
-// Update Swiss Franc
-cron.schedule(periodToRun, async () => {
-    const data = await getData(urlRenminbi);
-    const $ = cheerio.load(data);
-    var renminbi = $('#comercial').val();
-    var renminbi = renminbi.replace(",",".");
+// // Update Swiss Franc
+// cron.schedule(periodToRun, async () => {
+//     const data = await getData(urlRenminbi);
+//     const $ = cheerio.load(data);
+//     var renminbi = $('#comercial').val();
+//     var renminbi = renminbi.replace(",",".");
 
-        await axios.put(URL, { 
-            slug: 'yuan',
-            value: renminbi,
-            lastUpdate: moment().locale('pt-br').format('L')
-        }).then(() => {
-            console.log('Yuan - ' + 'R$ ' + renminbi);
-        }).catch(err => {
-            console.log(err);
-        });
-});
+//         await axios.put(URL, { 
+//             slug: 'yuan',
+//             value: renminbi,
+//             lastUpdate: moment().locale('pt-br').format('L')
+//         }).then(() => {
+//             console.log('Yuan - ' + 'R$ ' + renminbi);
+//         }).catch(err => {
+//             console.log(err);
+//         });
+// });
 
 
 

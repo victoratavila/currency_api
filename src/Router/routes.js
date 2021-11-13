@@ -57,7 +57,7 @@ router.get('/reports', Reports.compareValues);
 router.get('/reports/generate', Sheet.generateSheet);
 router.get('/reports/generate/yesterday-and-today/:code', Sheet.generateYesterdaySheet);
 router.get('/today/yesterday/:code', Currency.getTodayAndYesterdayValues);
-
+router.post('/create/cron-url', Currency.createCronUrl);
 router.post('/calculator', Calculator.Calculator);
 
 //Login Routes

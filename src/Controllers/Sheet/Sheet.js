@@ -35,8 +35,12 @@ module.exports = {
                 count_from_cel += 1;
             }
 
-                workbook.sheet("Cotações").cell('C16').value(currency[0].lastUpdate);
-                workbook.sheet("Cotações").cell('D16').value(report_generation_hour);
+                workbook.sheet("Cotações").cell(`D${currency.length+3}`).value('Horário do relatório').style('fill', 'AEAAAA');
+                workbook.sheet("Cotações").cell(`D${currency.length+4}`).value(report_generation_hour)
+
+                workbook.sheet("Cotações").cell(`C${currency.length+3}`).value('Data das cotações').style('fill', 'AEAAAA');
+                workbook.sheet("Cotações").cell(`C${currency.length+4}`).value(currency[0].lastUpdate)
+
                 workbook.toFileAsync(path.join(__dirname, '/outputs/report.xlsx')).then(() => {
                     res.download(path.join(__dirname, '/outputs/report.xlsx'), 'relatorio.xlsx');  
                 }).catch(err => {
@@ -78,6 +82,8 @@ module.exports = {
             await XlsxPopulate.fromFileAsync(path.join(__dirname, '/templates/sheet-yesterday-today-template.xlsx'))
             .then(workbook => {
 
+  
+
                 const yesterday_value = data.data.yesterday.value;
                 const yesterday_date = data.data.yesterday.date;
                 const today_value = data.data.today.value;
@@ -97,7 +103,7 @@ module.exports = {
                 }
 
               
-
+  
                 workbook.sheet("Cotações").cell('A2').value(currency);
                 workbook.sheet("Cotações").cell('B2').value(code);
                 workbook.sheet("Cotações").cell('C2').value(symbol);

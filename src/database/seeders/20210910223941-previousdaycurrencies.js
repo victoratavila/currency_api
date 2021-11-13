@@ -9,14 +9,18 @@ module.exports = {
         value: 0,
         code: "USD",
         symbol: "$",
-        lastUpdate: "25/07/2021"
+        lastUpdate: "25/07/2021",
+        createdAt: new Date(),
+        updatedAt: new Date()
       }, {
         currency: "Dólar Australiano",
         slug: "dolar-australiano",
         value: 0,
         code: "AUD",
         symbol: "$",
-        lastUpdate: "25/07/2021"
+        lastUpdate: "25/07/2021",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         currency: "Dólar Canadense",
@@ -24,7 +28,9 @@ module.exports = {
         value: 0,
         code: "CAD",
         symbol: "$",
-        lastUpdate: "25/07/2021"
+        lastUpdate: "25/07/2021",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         currency: "Euro",
@@ -32,7 +38,9 @@ module.exports = {
         value: 0,
         code: "EUR",
         symbol: "€",
-        lastUpdate: "25/07/2021"
+        lastUpdate: "25/07/2021",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         currency: "Franco Suíço",
@@ -40,7 +48,9 @@ module.exports = {
         value: 0,
         code: "CHF",
         symbol: "Fr",
-        lastUpdate: "25/07/2021"
+        lastUpdate: "25/07/2021",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         currency: "Iene",
@@ -48,7 +58,9 @@ module.exports = {
         value: 0,
         code: "JPY",
         symbol: "¥",
-        lastUpdate: "25/07/2021"
+        lastUpdate: "25/07/2021",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         currency: "Libra",
@@ -56,7 +68,9 @@ module.exports = {
         value: 0,
         code: "GBP",
         symbol: "£",
-        lastUpdate: "25/07/2021"
+        lastUpdate: "25/07/2021",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         currency: "Peso Argentino",
@@ -64,7 +78,9 @@ module.exports = {
         value: 0,
         code: "ARS",
         symbol: "$",
-        lastUpdate: "25/07/2021"
+        lastUpdate: "25/07/2021",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         currency: "Peso Chileno",
@@ -72,7 +88,9 @@ module.exports = {
         value: 0,
         code: "CLP",
         symbol: "$",
-        lastUpdate: "25/07/2021"
+        lastUpdate: "25/07/2021",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         currency: "Peso Colombiano",
@@ -80,7 +98,9 @@ module.exports = {
         value: 0,
         code: "COP",
         symbol: "$",
-        lastUpdate: "25/07/2021"
+        lastUpdate: "25/07/2021",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         currency: "Peso Mexicano",
@@ -88,7 +108,9 @@ module.exports = {
         value: 0,
         code: "MXN",
         symbol: "$",
-        lastUpdate: "25/07/2021"
+        lastUpdate: "25/07/2021",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         currency: "Yuan",
@@ -96,7 +118,9 @@ module.exports = {
         value: 0,
         code: "CNY",
         symbol: "¥",
-        lastUpdate: "25/07/2021"
+        lastUpdate: "25/07/2021",
+        createdAt: new Date(),
+        updatedAt: new Date()
       }]);
   
   },

@@ -4,6 +4,7 @@ const sequelize = require('sequelize');
 var slugify = require('slugify');
 const previousdayvalues = require('../Models/previousdayvalues');
 const percentage = require('calculate-percentages');
+const cronUrls = require('../Models/cron_urls');
 
 module.exports = {
 
@@ -185,18 +186,18 @@ module.exports = {
     // Create new currency 
     async createCurrency(req, res){
 
-        const { currencyName, slug, value, code, symbol, lastUpdate } = req.body;
+        const { currencyName, slug, value, code, symbol, lastUpdate, cron_url } = req.body;
 
         await currency.findOne({
             where: {
-                currency: slugify(currencyName, {
+                slug: slugify(currencyName, {
                     replacement: '-',
                     lower: true
                 })
             }
         }).then( async (result) => {
             if(result){
-                res.status(400).json({err: 'This currency was already registered'})
+                res.status(400).json({error: 'This currency was already registered'})
             } else {
                 await currency.create({
                     currency: currencyName,
@@ -208,8 +209,36 @@ module.exports = {
                     code: code,
                     symbol: symbol,
                     lastUpdate: lastUpdate
-                }).then(() => {
-                    res.json({result: 'Currency successfully created'});
+                }).then( async () => {
+
+                    if(cron_url != null && cron_url != undefined){
+                        await cronUrls.create({
+                            slug: slugify(currencyName, {
+                                replacement: '-',
+                                lower: true
+                            }),
+                            cron_url: cron_url
+                        }).then(() => {
+                            previousdayvalues.create({
+                                currency: currencyName,
+                                value: value,
+                                slug: slugify(currencyName, {
+                                    replacement: '-',
+                                    lower: true
+                                }),
+                                code: code,
+                                symbol: symbol,
+                                lastUpdate: lastUpdate
+                            })
+                            res.json({result: 'Currency successfully created'});
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                    } else {
+                        res.status(400).json({error: 'Please provide cron url related to this currency'});
+                    }
+
+                  
                 }).catch(err => {
                     console.log(err);
                 })
@@ -325,6 +354,19 @@ module.exports = {
                res.status(200).json(result.dataValues);
            }
           
+        }).catch(err => {
+            console.log(err);
+        })
+    },
+
+    async createCronUrl(req, res){
+        const { slug, cron_url } = req.body;
+
+        cronUrls.create({
+            slug: slug,
+            cron_url: cron_url
+        }).then(data => {
+            res.status(200).json({result: 'A new cron url was successfully added to the list'});
         }).catch(err => {
             console.log(err);
         })
