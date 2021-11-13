@@ -370,6 +370,53 @@ module.exports = {
         }).catch(err => {
             console.log(err);
         })
+    },
+
+    async deleteCurrency(req, res){
+        const { slug } = req.body;
+
+        if(slug != undefined && slug != null){
+            currency.findAll({
+                where: {
+                    slug: slug
+                }
+            }).then(data => {
+                
+                if(data != undefined && data != null && data != [] && data.length >= 1){
+                    currency.destroy({
+                        where: {
+                            slug: slug
+                        }
+                    }).then(() => {
+                        cronUrls.destroy({
+                            where: {
+                                slug: slug
+                            }
+                        }).then(() => {
+                            previousdayvalues.destroy({
+                                where: {
+                                    slug: slug
+                                }
+                            }).then(() => {
+                                res.json({result: `Currency related to slug ${slug} successfully deleted`})
+                            }).catch(err => {
+                                console.log(err)
+                            })
+                        }).catch(err => {
+                            console.log(err)
+                        })
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                } else {
+                    res.status(404).json({error: `Currency not found related to slug ${slug}`});
+                }
+            })
+        } else {
+            res.status(400).json({error: 'Please inform currency slug to delete'});
+        }
+
+       
     }
 
 }
