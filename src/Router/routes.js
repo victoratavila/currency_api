@@ -55,6 +55,7 @@ router.post('/newsletter/sign', Suggestion.signNewsletter);
 router.delete('/newsletter/cancel/:email', Suggestion.cancelNewsletterSubscription);
 router.get('/reports', Reports.compareValues);
 router.get('/reports/generate', Sheet.generateSheet);
+router.get('/reports/generate/include/:currencyName', Sheet.generateSheetIncluiding);
 router.get('/reports/generate/yesterday-and-today/:code', Sheet.generateYesterdaySheet);
 router.get('/today/yesterday/:code', Currency.getTodayAndYesterdayValues);
 router.post('/create/cron-url', Currency.createCronUrl);
