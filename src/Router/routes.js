@@ -8,6 +8,7 @@ const Login = require('../Controllers/Login');
 const Auth = require('../Middleware/auth');
 const Reports = require('../Controllers/Reports');
 const Sheet = require('../Controllers/Sheet/Sheet');
+const Countries = require('../Controllers/Countries');
 const CronUpdateValues =  require('../Cron/updateValues');
 const CronStorePreviousDayValues =  require('../Cron/storePreviousDayCurrencyValues.js');
 const cors = require('cors');
@@ -62,6 +63,12 @@ router.post('/create/cron-url', Currency.createCronUrl);
 router.post('/calculator', Calculator.Calculator);
 router.post('/calculator/real', Calculator.realCalculator);
 router.delete('/currency/delete', Auth, Currency.deleteCurrency);
+
+// Countries Routes
+router.get('/country/all', Countries.getAll);
+router.get('/country/search/:currency_code', Countries.searchCountryByCurrency);
+router.post('/country/create', Countries.createCountry);
+
 
 //Login Routes
 router.post('/login', Login.login);
