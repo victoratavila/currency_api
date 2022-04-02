@@ -323,8 +323,6 @@ module.exports = {
                     countries_list.push(result.country_name);
                 })
 
-                console.log(countries_list)
-
                 res.status(200).json({
                     currency: currency,
                     countries_amount: data.length,
