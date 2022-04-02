@@ -93,13 +93,6 @@ module.exports = {
         cron_url: "https://www.melhorcambio.com/iuan-hoje",
         createdAt: new Date(),
         updatedAt: new Date()
-      },
-
-      {
-        slug: 'won',
-        cron_url: "https://www.melhorcambio.com/won-hoje",
-        createdAt: new Date(),
-        updatedAt: new Date()
       }
     
     ])},

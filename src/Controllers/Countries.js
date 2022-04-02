@@ -68,11 +68,19 @@ module.exports = {
                 main_currency_code: currency_code
             }
         }).then(data => {
+
+            if(data.length > 0) {
+                res.status(200).json({
+                    countries_amount: data.length,
+                    data: data
+                });
+            } else {
+                res.status(200).json({
+                    countries_amount: data.length,
+                    result: `No countries registered related to the currency code ${currency_code} yet`
+                })
+            }
          
-            res.status(200).json({
-                countries_amount: data.length,
-                data: data
-            });
 
         }).catch(err => {
             console.log(err);

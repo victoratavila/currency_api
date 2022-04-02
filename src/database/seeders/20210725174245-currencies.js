@@ -97,15 +97,6 @@ module.exports = {
         code: "CNY",
         symbol: "¥",
         lastUpdate: "25/07/2021"
-      },
-    
-      {
-        currency: "Won",
-        slug: "won",
-        value: 0,
-        code: "KRW",
-        symbol: "₩",
-        lastUpdate: "25/07/2021"
       }
     ]);
   

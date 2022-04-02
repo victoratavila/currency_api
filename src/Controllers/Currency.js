@@ -5,6 +5,7 @@ var slugify = require('slugify');
 const previousdayvalues = require('../Models/previousdayvalues');
 const percentage = require('calculate-percentages');
 const cronUrls = require('../Models/cron_urls');
+const CountriesCurrencies = require('../Models/countries_currencies');
 
 module.exports = {
 
@@ -300,14 +301,39 @@ module.exports = {
                     lower: true
                 })
             }
-        }).then( currency => {
+        }).then( async currency => {
 
-            if(currency == null){
-                res.status(404).json({error: `Currency related to the code ${code} not found`});
-            } else {
-                res.json(currency);
-         
-            }
+
+            await CountriesCurrencies.findAll({
+
+                where: {
+                    main_currency_code: slugify(code, { replacement: '-', lower: true })
+                },
+
+                attributes: ['country_name'],
+                order: [ ['country_name', 'ASC'] ],
+                raw: true,
+                
+
+            }).then(data => {
+
+                let countries_list = [];
+
+                data.forEach(result => {
+                    countries_list.push(result.country_name);
+                })
+
+                console.log(countries_list)
+
+                res.status(200).json({
+                    currency: currency,
+                    countries_amount: data.length,
+                    countries: countries_list
+                });
+    
+            }).catch(err => {
+                console.log(err);
+            })
            
         }).catch(err => {
             console.log(err);
