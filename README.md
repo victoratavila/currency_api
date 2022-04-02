@@ -22,3 +22,11 @@ npx sequelize db:migrate
 ## Run seeders
 cd src/database
 npx sequelize-cli db:seed:all
+
+## Run migrations deploy Heroku 
+heroku run npx sequelize-cli db:migrate --env production
+
+## Run seeder deploy Heroku 
+heroku run npx sequelize-cli db:seed --env production
+or
+heroku run npx sequelize-cli db:seed --seed seefile.js --env production
