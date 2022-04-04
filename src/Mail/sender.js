@@ -205,7 +205,7 @@ function sendMail(from, sender, recipient, subject, content){
                             <table cellspacing="0" cellpadding="0" border="0" align="center" style="Margin: auto">
                                 <tr>
                                     <td style="border-radius: 3px; background: #37dd5b; text-align: center;" class="button-td">
-                                        <a href="https://conversordemoeda.xyz" target="_blank" style="background: #37dd5b; border: 15px solid #37dd5b; font-family: sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
+                                        <a href="https://cotacoesdehoje.com.br" target="_blank" style="background: #37dd5b; border: 15px solid #37dd5b; font-family: sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
                                             &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:white">Acessar site</span>&nbsp;&nbsp;&nbsp;&nbsp;
                                         </a>
                                     </td>
@@ -243,10 +243,10 @@ function sendMail(from, sender, recipient, subject, content){
                 <table cellspacing="0" cellpadding="0" border="0" align="center" width="600" style="margin: auto;" class="email-container">
                     <tr>
                         <td style="padding: 40px 10px;width: 100%;font-size: 12px; font-family: sans-serif; mso-height-rule: exactly; line-height:18px; text-align: center; color: #888888;">
-                            Conversor de moeda<br><span class="mobile-link--footer">Plataforma para a verificação de cotações e câmbios</span><br><span class="mobile-link--footer"></span>
+                            Cotações de hoje<br><span class="mobile-link--footer">Plataforma para a verificação de cotações e câmbios</span><br><span class="mobile-link--footer"></span>
                             <br><br> 
 
-                            <a  href="https://conversordemoeda.xyz/cancelar/newsletter/${recipient}" target="_blank">
+                            <a  href="https://cotacoesdehoje.com.br/cancelar/newsletter/${recipient}" target="_blank">
                                 <unsubscribe style="color:#888888; text-decoration:underline; cursor: pointer;">Cancelar inscrição newsletter</unsubscribe>
                             </a>
                            

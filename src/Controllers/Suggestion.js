@@ -120,9 +120,9 @@ module.exports = {
 
                             sendMail(
                                 // Sender name
-                                'Conversor de moeda', 
+                                'Cotações de hoje', 
                                 // Sender email
-                                'contato@conversordemoeda.xyz', 
+                                'contato@cotacoesdehoje.com.br', 
                                 // Recipient
                                 `${email.trim()}`, 
                                 // Subject
@@ -185,9 +185,9 @@ module.exports = {
                              try {
                                 sendNewsletter(
                                  // Sender name
-                                 'Conversor de moeda', 
+                                 'Cotações de hoje', 
                                  // Sender email
-                                 'contato@conversordemoeda.xyz', 
+                                 'contato@cotacoesdehoje.com.br', 
                                  // Recipient
                                  checkedEmail, 
                                  // Subject
