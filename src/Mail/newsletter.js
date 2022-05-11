@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const { MAIL_HOST, MAIL_PORT, MAIL_PASSWORD } = process.env;
+const { MAIL_HOST, MAIL_PORT, NEWSLETTER_MAIL_PASSWORD } = process.env;
 
 function sendNewsletter(from, sender, recipient, subject, content, newsletterText){
 
@@ -8,7 +8,7 @@ function sendNewsletter(from, sender, recipient, subject, content, newsletterTex
         port: MAIL_PORT,
         auth: {
             user: `${sender}`,
-            pass: MAIL_PASSWORD
+            pass: NEWSLETTER_MAIL_PASSWORD
         }
     });
 

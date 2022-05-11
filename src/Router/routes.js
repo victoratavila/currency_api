@@ -11,6 +11,8 @@ const Sheet = require('../Controllers/Sheet/Sheet');
 const Countries = require('../Controllers/Countries');
 const CronUpdateValues =  require('../Cron/updateValues');
 const CronStorePreviousDayValues =  require('../Cron/storePreviousDayCurrencyValues.js');
+const CronCurrencyHistory = require('../Cron/currencyHistory.js');
+const CurrencyHistory = require('../Controllers/CurrencyHistory');
 const cors = require('cors');
 
 // const whitelist = ['http://localhost:3000', 'http://conversordemoeda.xyz', 'https://conversordemoeda.xyz']
@@ -69,6 +71,9 @@ router.get('/country/all', Countries.getAll);
 router.get('/country/search/:currency_code', Countries.searchCountryByCurrency);
 router.post('/country/create', Countries.createCountry);
 
+// Currency History
+router.get('/currency/history/all', CurrencyHistory.getHistory);
+router.post('/currency/history', CurrencyHistory.getHistory);
 
 //Login Routes
 router.post('/login', Login.login);

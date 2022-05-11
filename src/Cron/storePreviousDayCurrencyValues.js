@@ -71,7 +71,7 @@ const getData = async (url) => {
                     value: currentCurrencyValue,
                     lastUpdate: moment().locale('pt-br').format('L')
                 }).then(() => {
-                    console.log( `${currency.slug } = R$ ${currentCurrencyValue}` );
+                    // console.log( `${currency.slug } = R$ ${currentCurrencyValue}` );
                 }).catch(err => {
                     console.log(err);
                 });

@@ -187,13 +187,13 @@ module.exports = {
                                  // Sender name
                                  'Cotações de hoje', 
                                  // Sender email
-                                 'contato@cotacoesdehoje.com.br', 
+                                 'newsletter@cotacoesdehoje.com.br', 
                                  // Recipient
                                  checkedEmail, 
                                  // Subject
                                  subject, 
                                    // Content
-                                 `Olá! Passando aqui para te avisar que sua sugestão foi enviada com sucesso e está sendo analisada internamente por nossos desenvolvedores, agradecemos sua sugestão e pedimos que fique ligada nas nossas novidades, grandes coisas vem por aí! <3`,
+                                 '',
                                  // NewsletterText
                                  newsletterText
                              )
