@@ -21,6 +21,27 @@ module.exports = {
         })
     },
 
+    // async getAllByOrder(req, res){
+
+
+    //     console.log('oi')
+
+
+    //     // const { order } = req.params;
+    //     // console.log(order)
+    //     // res.json(order);
+
+    //     // await currency.findAll({
+    //     //     order: [
+    //     //         ['currency', 'ASC']
+    //     //     ]
+    //     // }).then(currency => {
+    //     //     res.json(currency);
+    //     // }).catch(err => {
+    //     //     console.log(err);
+    //     // })
+    // },
+
     async getAllFromYesterday(req, res){
         await previousdayvalues.findAll({
             order: [
@@ -111,30 +132,72 @@ module.exports = {
     async getAllByOrder(req, res){
 
         const { order } = req.params;
+        const acceptable_orders = ['ascending', 'descending', 'lower' ,'higher', 'random']
 
-        if(order == 'lower'){
-            await currency.findAll({
-                order: [
-                    ['value', 'ASC']
-                ]
-            }).then(currency => {
-                res.json(currency);
-            }).catch(err => {
-                console.log(err);
-            })
-        }
+        if(acceptable_orders.includes(order)){
 
-        if(order == 'higher'){
-            await currency.findAll({
-                order: [
-                    ['value', 'DESC']
-                ]
-            }).then(currency => {
-                res.json(currency);
-            }).catch(err => {
-                console.log(err);
-            })
-        }
+            if(order == 'ascending'){
+                await currency.findAll({
+                    order: [
+                        ['currency', 'ASC']
+                    ]
+                }).then(currency => {
+                    res.json(currency);
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+    
+            if(order == 'descending'){
+                await currency.findAll({
+                    order: [
+                        ['currency', 'DESC']
+                    ]
+                }).then(currency => {
+                    res.json(currency);
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+    
+            if(order == 'lower'){
+                await currency.findAll({
+                    order: [
+                        ['value', 'ASC']
+                    ]
+                }).then(currency => {
+                    res.json(currency);
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+    
+            if(order == 'higher'){
+                await currency.findAll({
+                    order: [
+                        ['value', 'DESC']
+                    ]
+                }).then(currency => {
+                    res.json(currency);
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+    
+            if(order == 'random'){
+                await currency.findAll({
+                    order: sequelize.literal('rand()')
+                }).then(currency => {
+                    res.json(currency);
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+            
+        } else {
+            res.status(400).json({error: 'Please provide a valid parameter to order by'});
+        } 
+
 
     },
 
