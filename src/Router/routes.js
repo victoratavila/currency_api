@@ -40,6 +40,8 @@ const cors = require('cors');
 
 router.get('/currency/include/:currencyName', Currency.getCurrencyIncluding);
 router.get('/currency/all', Currency.getAll);
+router.get('/currency/history', CurrencyHistory.getHistory);
+router.post('/currency/create/history', CurrencyHistory.registerHistory);
 router.get('/currency/yesterday/all',Currency.getAllFromYesterday);
 router.get('/currency/filter/:order', Currency.getAllByOrder);
 router.get('/currency/:currencyName', Currency.getCurrency);

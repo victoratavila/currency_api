@@ -5,6 +5,7 @@ module.exports = {
     await queryInterface.bulkInsert('cron_urls', [
 
       {
+        currency: 'Dólar',
         slug: "dolar",
         cron_url: "https://www.melhorcambio.com/dolar-hoje",
         createdAt: new Date(),
@@ -12,6 +13,7 @@ module.exports = {
       }, 
 
       {
+        currency: 'Euro',
         slug: "euro",
         cron_url: "https://www.melhorcambio.com/euro-hoje",
         createdAt: new Date(),
@@ -19,6 +21,7 @@ module.exports = {
       }, 
 
       {
+        currency: 'Libra',
         slug: "libra",
         cron_url: "https://www.melhorcambio.com/libra-hoje",
         createdAt: new Date(),
@@ -26,6 +29,7 @@ module.exports = {
       }, 
 
       {
+        currency: 'Dólar Canadense',
         slug: "dolar-canadense",
         cron_url: "https://www.melhorcambio.com/dolar-canadense-hoje",
         createdAt: new Date(),
@@ -33,6 +37,7 @@ module.exports = {
       }, 
 
       {
+        currency: 'Iene',
         slug: "iene",
         cron_url: "https://www.melhorcambio.com/iene-hoje",
         createdAt: new Date(),
@@ -40,6 +45,7 @@ module.exports = {
       }, 
 
       {
+        currency: 'Dólar Australiano',
         slug: "dolar-australiano",
         cron_url: "https://www.melhorcambio.com/dolar-australiano-hoje",
         createdAt: new Date(),
@@ -47,6 +53,7 @@ module.exports = {
       }, 
 
       {
+        currency: 'Peso Mexicano',
         slug: "peso-mexicano",
         cron_url: "https://www.melhorcambio.com/peso-mexicano-hoje",
         createdAt: new Date(),
@@ -54,6 +61,7 @@ module.exports = {
       }, 
 
       {
+        currency: 'Peso Argentino',
         slug: "peso-argentino",
         cron_url: "https://www.melhorcambio.com/peso-argentino-hoje",
         createdAt: new Date(),
@@ -61,6 +69,7 @@ module.exports = {
       }, 
 
       {
+        currency: 'Peso Colombiano',
         slug: "peso-colombiano",
         cron_url: "https://www.melhorcambio.com/peso-colombiano-hoje",
         createdAt: new Date(),
@@ -68,6 +77,7 @@ module.exports = {
       }, 
 
       {
+        currency: 'Peso Chileno',
         slug: "peso-chileno",
         cron_url: "https://www.melhorcambio.com/peso-chileno-hoje",
         createdAt: new Date(),
@@ -75,6 +85,7 @@ module.exports = {
       }, 
 
       {
+        currency: 'Dirham',
         slug: "dirham",
         cron_url: "https://www.melhorcambio.com/dirham-hoje",
         createdAt: new Date(),
@@ -82,6 +93,7 @@ module.exports = {
       }, 
 
       {
+        currency: 'Franco Suíço',
         slug: "franco-suico",
         cron_url: "https://www.melhorcambio.com/franco-suico-hoje",
         createdAt: new Date(),
@@ -89,6 +101,7 @@ module.exports = {
       }, 
 
       {
+        currency: 'Yuan',
         slug: 'yuan',
         cron_url: "https://www.melhorcambio.com/iuan-hoje",
         createdAt: new Date(),

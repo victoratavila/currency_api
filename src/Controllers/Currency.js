@@ -277,11 +277,15 @@ module.exports = {
 
                     if(cron_url != null && cron_url != undefined){
                         await cronUrls.create({
+
+                            currency: currencyName,
                             slug: slugify(currencyName, {
                                 replacement: '-',
                                 lower: true
                             }),
+
                             cron_url: cron_url
+
                         }).then(() => {
                             previousdayvalues.create({
                                 currency: currencyName,
@@ -447,9 +451,10 @@ module.exports = {
     },
 
     async createCronUrl(req, res){
-        const { slug, cron_url } = req.body;
+        const { slug, cron_url, currency } = req.body;
 
         cronUrls.create({
+            currency: currency,
             slug: slug,
             cron_url: cron_url
         }).then(data => {

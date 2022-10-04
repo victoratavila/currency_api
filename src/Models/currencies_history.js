@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const connection = require('../database/connection');
 
-const currencies_history = connection.define("currencies_history", {
+const Currencies_history = connection.define("currencies_history", {
 
     currency: {
         type: Sequelize.STRING,
@@ -36,6 +36,6 @@ const currencies_history = connection.define("currencies_history", {
 
   });
 
-  currencies_history.sync({ force: false });
+  Currencies_history.sync({ force: false });
 
-module.exports = currencies_history;
+module.exports = Currencies_history;

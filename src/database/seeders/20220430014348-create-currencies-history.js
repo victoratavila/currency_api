@@ -2,21 +2,25 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('currencies_history', [{
+    await queryInterface.bulkInsert('currencies_histories', [{
 
       currency: "Dólar",
       slug: "dolar",
       value: 0,
       code: "USD",
       symbol: "$",
-      date: "28/04/2022"
+      date: "28/04/2022",
+      createdAt: new Date(),
+      updatedAt: new Date()
     }, {
       currency: "Dólar Australiano",
       slug: "dolar-australiano",
       value: 0,
       code: "AUD",
       symbol: "$",
-      date: "28/04/2022"
+      date: "28/04/2022",
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       currency: "Dólar Canadense",
@@ -24,7 +28,9 @@ module.exports = {
       value: 0,
       code: "CAD",
       symbol: "$",
-      date: "28/04/2022"
+      date: "28/04/2022",
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       currency: "Euro",
@@ -32,7 +38,9 @@ module.exports = {
       value: 0,
       code: "EUR",
       symbol: "€",
-      date: "28/04/2022"
+      date: "28/04/2022",
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       currency: "Franco Suíço",
@@ -40,7 +48,9 @@ module.exports = {
       value: 0,
       code: "CHF",
       symbol: "Fr",
-      date: "28/04/2022"
+      date: "28/04/2022",
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       currency: "Iene",
@@ -48,7 +58,9 @@ module.exports = {
       value: 0,
       code: "JPY",
       symbol: "¥",
-      date: "28/04/2022"
+      date: "28/04/2022",
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       currency: "Libra",
@@ -56,7 +68,9 @@ module.exports = {
       value: 0,
       code: "GBP",
       symbol: "£",
-      date: "28/04/2022"
+      date: "28/04/2022",
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       currency: "Peso Argentino",
@@ -64,7 +78,9 @@ module.exports = {
       value: 0,
       code: "ARS",
       symbol: "$",
-      date: "28/04/2022"
+      date: "28/04/2022",
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       currency: "Peso Chileno",
@@ -72,7 +88,9 @@ module.exports = {
       value: 0,
       code: "CLP",
       symbol: "$",
-      date: "28/04/2022"
+      date: "28/04/2022",
+      createdAt: new Date(),
+      updatedAt: new Date()
   
     },
     {
@@ -81,7 +99,9 @@ module.exports = {
       value: 0,
       code: "COP",
       symbol: "$",
-      date: "28/04/2022"
+      date: "28/04/2022",
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       currency: "Peso Mexicano",
@@ -89,7 +109,9 @@ module.exports = {
       value: 0,
       code: "MXN",
       symbol: "$",
-      date: "28/04/2022"
+      date: "28/04/2022",
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     {
       currency: "Yuan",
@@ -97,7 +119,9 @@ module.exports = {
       value: 0,
       code: "CNY",
       symbol: "¥",
-      date: "28/04/2022"
+      date: "28/04/2022",
+      createdAt: new Date(),
+      updatedAt: new Date()
     }]);
   },
 
