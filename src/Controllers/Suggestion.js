@@ -274,15 +274,29 @@ module.exports = {
                     if(status == null || status == undefined || status == ""){
                         res.status(400).json({result: 'Please provide the status of this suggestion to update it'});
                     } else {
-                        Suggestion.update({
-                            status: status
-                        }, { where: {
-                            id: id
-                        }}).then(result => {
-                            res.status(200).json({result: `Status of the suggestion ${response.suggestion} updated to ${status}`})
-                        }).catch(err => {
-                            console.log(err);
-                        })
+
+                        if(status == "rejected"){
+                            Suggestion.destroy({
+                                where: {
+                                    id: id
+                                }
+                            }).then(() => {
+                                res.status(200).json({result: `Suggestion ${id} successfully deleted from database`});
+                            }).catch(err => {
+                                console.log(err);
+                            });
+
+                        } else {
+                            Suggestion.update({
+                                status: status
+                            }, { where: {
+                                id: id
+                            }}).then(result => {
+                                res.status(200).json({result: `Status of the suggestion ${response.suggestion} updated to ${status}`})
+                            }).catch(err => {
+                                console.log(err);
+                            })
+                        }
                     }
                 }
   
