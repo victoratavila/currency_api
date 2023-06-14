@@ -14,7 +14,7 @@ if(process.env.PROD == undefined){
     var URL = 'http://localhost:8080/currency/create/history';
 } else {
     var periodToRun = '50 23 * * *';
-    var URL = `https://currencycoverter-api.herokuapp.com/currency/create/history`;
+    var URL = `https://currencyconverter-api.onrender.com/currency/create/history`;
 }
 
 // Function to fetch the url html
