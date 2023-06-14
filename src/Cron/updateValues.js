@@ -22,7 +22,7 @@ if(process.env.PROD == undefined){
     var periodToRun = '* * * * *';
     var URL = 'http://localhost:8080/currency/update';
 } else {
-    var periodToRun = '*/10 * * * *';
+    var periodToRun = '*/15 * * * *';
     var URL = `https://currencyconverter-api.onrender.com/currency/update`;
 }
 
