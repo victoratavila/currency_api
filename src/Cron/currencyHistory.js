@@ -6,7 +6,7 @@ const moment = require('moment');
 const cronUrls = require('../Models/cron_urls');
 const CurrenciesHistory = require('../Models/currencies_history');
 const { raw } = require('express');
-const Currency = require('../Controllers/Currency');
+const Currency = require('../Models/currency');
 
 // Run every minute when developing and every 23:50 in production
 if(process.env.PROD == undefined){
@@ -38,10 +38,10 @@ const getData = async (url) => {
                 const cron_slugs = cron_urls_values.slug;
                 const cron_urls = cron_urls_values.cron_url;
                 const cron_currency_name = cron_urls_values.currency;
-                
+
                 CurrenciesHistory.findAll({
                     where: { slug: cron_slugs },
-                    raw: true
+                    raw: true 
 
                 }).then( async currency_history_values => {
                  
@@ -59,10 +59,12 @@ const getData = async (url) => {
                         const $ = cheerio.load(data);
                         var currentCurrencyValue = $('#comercial').val();
                         var currentCurrencyValue = currentCurrencyValue.replace(",",".");
-        
-                        // Checking if the currency exist in the currency history table before adding it
+
+                        console.log(crons_data)
 
                     } else {
+
+
                         // In case the limit will be reached, remove the older one to add the new one
                     }
 

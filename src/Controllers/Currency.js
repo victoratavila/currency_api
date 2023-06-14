@@ -238,7 +238,7 @@ module.exports = {
             if(currency == undefined || currency == [] || currency == null){
                 res.status(404).json({error: 'Currency not found'});
             } else {
-                res.json(dolcurrencyar);
+                res.json(currency);
             }
        
         }).catch(err => {
