@@ -6,6 +6,7 @@ const previousdayvalues = require('../Models/previousdayvalues');
 const percentage = require('calculate-percentages');
 const cronUrls = require('../Models/cron_urls');
 const CountriesCurrencies = require('../Models/countries_currencies');
+const moment = require('moment');
 
 module.exports = {
 
@@ -16,31 +17,12 @@ module.exports = {
             ]
         }).then(currency => {
             res.json(currency);
+
         }).catch(err => {
             console.log(err);
         })
     },
 
-    // async getAllByOrder(req, res){
-
-
-    //     console.log('oi')
-
-
-    //     // const { order } = req.params;
-    //     // console.log(order)
-    //     // res.json(order);
-
-    //     // await currency.findAll({
-    //     //     order: [
-    //     //         ['currency', 'ASC']
-    //     //     ]
-    //     // }).then(currency => {
-    //     //     res.json(currency);
-    //     // }).catch(err => {
-    //     //     console.log(err);
-    //     // })
-    // },
 
     async getAllFromYesterday(req, res){
         await previousdayvalues.findAll({
@@ -105,7 +87,7 @@ module.exports = {
 
                 let difference = percentage.differenceBetween(yesterdayResult.value, result.value).toFixed(2);
                
-                if(difference == 00){
+                if(difference == 0){
                        finalResult.difference_between = `${difference}%`;
                        finalResult.increased = 'same';
                    } else {
@@ -318,13 +300,14 @@ module.exports = {
 
     // Update values
     async updateCurrency(req, res){
-        const { slug, value, lastUpdate } = req.body;
+        const { slug, value, lastUpdate, updatedAt } = req.body;
 
         await currency.update({
 
             slug: slug,
             value: value,
-            lastUpdate: lastUpdate
+            lastUpdate: lastUpdate,
+            updatedAt: updatedAt
             
         }, {
             where: {

@@ -44,11 +44,13 @@ const getData = async (url) => {
                 const $ = cheerio.load(data);
                 var currentCurrencyValue = $('#comercial').val();
                 var currentCurrencyValue = currentCurrencyValue.replace(",",".");
-    
+
                 await axios.put(URL, { 
                     slug: currency.slug,
                     value: currentCurrencyValue,
-                    lastUpdate: moment().locale('pt-br').format('L')
+                    lastUpdate: moment().locale('pt-br').format('L'),
+                    updatedAt: moment().locale('pt-br').format('LTS')
+
                 }).then(() => {
                     // console.log( `${currency.slug } = R$ ${currentCurrencyValue}` );
                 }).catch(err => {
