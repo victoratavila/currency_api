@@ -40,7 +40,6 @@ const cors = require('cors');
 
 router.get('/currency/include/:currencyName', Currency.getCurrencyIncluding);
 router.get('/currency/all', Currency.getAll);
-router.get('/currency/history', CurrencyHistory.getHistory);
 router.post('/currency/create/history', CurrencyHistory.registerHistory);
 router.get('/currency/yesterday/all',Currency.getAllFromYesterday);
 router.get('/currency/filter/:order', Currency.getAllByOrder);
@@ -74,8 +73,7 @@ router.get('/country/search/:currency_code', Countries.searchCountryByCurrency);
 router.post('/country/create', Countries.createCountry);
 
 // Currency History
-router.get('/currency/history/all', CurrencyHistory.getHistory);
-router.post('/currency/history', CurrencyHistory.getHistory);
+router.get('/currency/history/:currencyName/:period', CurrencyHistory.getHistoryByCurrency);
 
 //Login Routes
 router.post('/login', Login.login);
