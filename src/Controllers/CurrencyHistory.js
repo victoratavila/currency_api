@@ -12,8 +12,27 @@ module.exports = {
 
         const { currencyName, period } = req.params;
 
-        const datesURL = `https://www.melhorcambio.com/dolar_hoje/get_eixo_x.php?idmoeda=8&periodo=${period}`
-        const valuesURL = `https://www.melhorcambio.com/dolar_hoje/get_comercial.php?idmoeda=8&periodo=${period}`
+        currencyId = {
+            dolar: 8,
+            euro: 11,
+            libra: 15,
+            dolar_canadense: 7,
+            dolar_australiano: 6,
+            iene: 14,
+            peso_mexicano: 25,
+            shekel: 28,
+            franco_suico: 12,
+            peso_chileno: 18,
+            peso_argentino: 19,
+            peso_colombiano: 32
+        }
+        
+        const formatedCurrencyName = currencyName.replace('-', '_')
+
+        console.log(formatedCurrencyName)
+
+        const datesURL = `https://www.melhorcambio.com/dolar_hoje/get_eixo_x.php?idmoeda=${currencyId[formatedCurrencyName]}&periodo=${period}`
+        const valuesURL = `https://www.melhorcambio.com/dolar_hoje/get_comercial.php?idmoeda=${currencyId[formatedCurrencyName]}&periodo=${period}`
 
         axios.get(datesURL).then(dates => {
             
@@ -25,7 +44,10 @@ module.exports = {
                     result[`${dates.data[i]}`] = parseFloat(values.data[i])
                 }
 
-                res.json(result);
+                res.status(200).json({
+                    currencyName: currencyName,
+                    result
+                });
 
             }).catch(err => {
                 console.log(err);
