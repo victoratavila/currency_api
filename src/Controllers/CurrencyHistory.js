@@ -41,7 +41,15 @@ module.exports = {
                 const result = {}
 
                 for(i = 0; i < dates.data.length && i < values.data.length ; i++){
-                    result[`${dates.data[i]}`] = parseFloat(values.data[i])
+
+                    console.log(dates.data[i])
+
+                    if(dates.data[i].includes('<br>')){
+                        result[`${dates.data[i].replace('<br>', ' - ')}`] = parseFloat(values.data[i])
+                    } else {
+                        result[`${dates.data[i]}`] = parseFloat(values.data[i])
+                    }
+                 
                 }
 
                 res.status(200).json({

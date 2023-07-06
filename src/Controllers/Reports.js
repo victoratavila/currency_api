@@ -35,7 +35,7 @@ module.exports = {
                    const difference = percentage.differenceBetween(yesterdayValue, todayValue).toFixed(2);
                    console.log(difference.charAt(0))
 
-                   if(difference == 00){
+                   if(difference == 0){
                     results[slug] = `${difference}%`;
                    } else {
                     if(difference.charAt(0) != '-'){
