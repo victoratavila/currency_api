@@ -135,7 +135,7 @@ module.exports = {
         
         let baseURL;
         if(process.env.PROD != undefined){
-            baseURL = 'https://currencycoverter-api.herokuapp.com'
+            baseURL = 'https://currencyconverter-api.onrender.com'
         } else {
             baseURL = 'http://localhost:8080';
         }
