@@ -13,6 +13,7 @@ const CronUpdateValues =  require('../Cron/updateValues');
 const CronStorePreviousDayValues =  require('../Cron/storePreviousDayCurrencyValues.js');
 const CronCurrencyHistory = require('../Cron/currencyHistory.js');
 const CurrencyHistory = require('../Controllers/CurrencyHistory');
+const chatGPT = require('../Controllers/ChatGPT/index')
 const cors = require('cors');
 
 // const whitelist = ['http://localhost:3000', 'http://conversordemoeda.xyz', 'https://conversordemoeda.xyz']
@@ -67,6 +68,7 @@ router.post('/calculator', Calculator.Calculator);
 router.post('/calculator/real', Calculator.realCalculator);
 router.delete('/currency/delete', Auth, Currency.deleteCurrency);
 
+router.get('/chat-gpt', chatGPT.checkData)
 // Countries Routes
 router.get('/country/all', Countries.getAll);
 router.get('/country/search/:currency_code', Countries.searchCountryByCurrency);
