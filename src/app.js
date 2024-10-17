@@ -30,6 +30,6 @@ app.use(express.static(__dirname + '/public'));
 app.use(routes);
 
 // Server listener
-app.listen(process.env.PORT || 8080, () => {
+app.listen(process.env.PORT || 8081, () => {
     console.log('The server is running');
 })
